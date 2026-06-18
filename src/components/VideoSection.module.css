@@ -1,0 +1,45 @@
+.videoWrapper {
+  width: 95%;
+  max-width: 1400px;
+  height: 80vh;
+  margin: 4rem auto;
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px; /* Rounded corners to match the modern header aesthetic */
+  overflow: hidden;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Suggests interactivity */
+}
+
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; /* Prevents user interaction with the video controls */
+}
+
+.fullScreenOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullScreenVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the entire screen, removing all gaps */
+}

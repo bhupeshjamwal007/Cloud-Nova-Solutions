@@ -1,0 +1,122 @@
+.clientSection {
+  position: relative;
+  width: 100%;
+  padding: 8rem 0;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.title {
+  color: #fff;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.description {
+  color: #a1a1aa;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 100%;
+}
+
+.gridContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Borders removed for a floating logo aesthetic */
+}
+
+.clientCell {
+  position: relative;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Removed the background hover effect so there's no visible box */
+
+.clientItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(100%);
+  transform: scale(0.95);
+  text-align: left;
+}
+
+.clientCell:hover .clientItem {
+  opacity: 1;
+  filter: grayscale(0%) brightness(200%);
+  transform: scale(1);
+}
+
+.clientLogo {
+  height: 40px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Fallback for text-based placeholder logos */
+.clientText {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.clientDescription {
+  color: #a1a1aa;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .clientCell {
+    height: 180px;
+  }
+}

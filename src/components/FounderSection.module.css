@@ -1,0 +1,135 @@
+.founderSection {
+  position: relative;
+  width: 100%;
+  padding: 10rem 0;
+  background-color: #000;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.topSection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.quote {
+  flex: 2;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+}
+
+.founderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 4rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photoWrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.founderPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%; /* Shift focus slightly upward as requested */
+}
+
+.founderName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.founderTitle {
+  font-size: 1rem;
+  color: #a1a1aa;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bottomSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.infoBlock {
+  padding: 4rem 4rem 0 0;
+}
+
+.infoBlock:last-child {
+  padding: 4rem 0 0 4rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blockTitle {
+  color: #0D6EFD;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.blockText {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .topSection {
+    flex-direction: column;
+  }
+  .founderInfo {
+    padding-left: 0;
+    border-left: none;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 3rem;
+  }
+  .bottomSection {
+    grid-template-columns: 1fr;
+  }
+  .infoBlock {
+    padding: 4rem 0 0 0;
+  }
+  .infoBlock:last-child {
+    padding: 4rem 0 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4rem;
+  }
+}

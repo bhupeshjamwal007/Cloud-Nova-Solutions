@@ -1,0 +1,72 @@
+.manifestoSection {
+  position: relative;
+  width: 100%;
+  padding: 10rem 0 8rem 0;
+  background-color: #000;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.hugeTitle {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.brandName {
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 8rem 0;
+  text-transform: uppercase;
+  /* Premium Outline text effect */
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  transition: color 0.4s ease, -webkit-text-stroke 0.4s ease, transform 0.4s ease;
+  cursor: default;
+  display: inline-block;
+  transform-origin: left center;
+}
+
+.brandName:hover {
+  color: #0D6EFD; /* Fill with Cloud Nova Blue */
+  -webkit-text-stroke: 1px #0D6EFD;
+  transform: scale(1.02);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 4rem;
+}
+
+.paragraph {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin: 0;
+  max-width: 800px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}

@@ -1,0 +1,86 @@
+.processSection {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0 3rem 0;
+  background-color: #000;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 6rem;
+}
+
+.titleContainer {
+  flex: 1;
+  max-width: 500px;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.contentContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem; /* Align perfectly with the cap-height of the massive title */
+}
+
+.paragraph {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin: 0;
+  max-width: 700px;
+}
+
+/* Subtle fade-in animation setup */
+.animateIn {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
+}
+
+.delay1 {
+  animation-delay: 0.2s;
+}
+
+.delay2 {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 4rem;
+  }
+  
+  .titleContainer {
+    max-width: 100%;
+  }
+  
+  .contentContainer {
+    padding-top: 0;
+  }
+}

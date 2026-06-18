@@ -1,0 +1,94 @@
+.lazarevCta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.ctaTextContainer {
+  position: relative;
+  overflow: hidden;
+  height: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ctaTextPrimary, .ctaTextSecondary {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaTextSecondary {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #fff;
+}
+
+.ctaIconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.ctaIconPrimary, .ctaIconSecondary {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaIconPrimary {
+  color: #fff;
+  transform: translate(0, 0);
+}
+
+.ctaIconSecondary {
+  color: #0D6EFD;
+  transform: translate(-150%, 150%);
+}
+
+.lazarevCta:hover {
+  background-color: #0D6EFD;
+  border-color: #0D6EFD;
+}
+
+.lazarevCta:hover .ctaTextPrimary {
+  transform: translateY(-100%);
+}
+
+.lazarevCta:hover .ctaTextSecondary {
+  transform: translateY(-100%);
+}
+
+.lazarevCta:hover .ctaIconWrapper {
+  background-color: #fff;
+}
+
+.lazarevCta:hover .ctaIconPrimary {
+  transform: translate(150%, -150%);
+}
+
+.lazarevCta:hover .ctaIconSecondary {
+  transform: translate(0, 0);
+}

@@ -1,0 +1,141 @@
+.bannerSection {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0; /* Removed side padding so it can stretch edge to edge */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.shaderCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bannerCard {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background: rgba(25, 25, 30, 0.6);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: border-color 0.4s ease;
+  overflow: hidden; /* Contains the shader canvas */
+}
+
+.cardContent {
+  position: relative;
+  z-index: 10; /* Ensures content floats above the canvas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px; /* Constrains the text/features so they don't stretch too wide */
+  margin: 0 auto;
+}
+
+.bannerCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(13, 110, 253, 0.5);
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.highlight {
+  background: linear-gradient(to right, #0dcaf0, #0D6EFD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: #a1a1aa;
+  max-width: 800px;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.featuresGrid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.featureItem {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  transition: background 0.3s ease;
+}
+
+.featureItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.featureTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.featureDesc {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  line-height: 1.5;
+}
+
+.ctaButton {
+  background: #0D6EFD;
+  color: #fff;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover .arrow {
+  transform: translateX(4px);
+}
