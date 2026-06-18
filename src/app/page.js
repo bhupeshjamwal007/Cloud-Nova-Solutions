@@ -12,10 +12,12 @@ import SoftwareBanner from "@/components/SoftwareBanner";
 import FounderSection from "@/components/FounderSection";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import IntroPreloader from "@/components/IntroPreloader";
 
 export default function Home() {
   return (
     <div className="relative w-full overflow-x-hidden bg-black">
+      <IntroPreloader />
       <main className="relative z-10 w-full bg-black flex flex-col rounded-b-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b border-[rgba(255,255,255,0.1)]">
         <Header />
         <Hero />

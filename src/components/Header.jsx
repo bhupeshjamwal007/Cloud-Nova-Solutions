@@ -30,13 +30,12 @@ export default function Header() {
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
       <div className={styles.logo}>
-        Cloud Nova
+        Cloud <span style={{ WebkitTextFillColor: 'initial', color: '#0D6EFD' }}>Nova</span> Solutions
       </div>
       <div className={styles.navLinks}>
-        <a href="#cases" className={styles.link}>Cases</a>
+        <a href="#portfolio" className={styles.link}>Portfolio</a>
         <a href="#services" className={styles.link}>Services</a>
         <a href="#about" className={styles.link}>About</a>
-        <a href="#news" className={styles.link}>News</a>
       </div>
       <LazarevCta href="#contact" text="Let's Talk" />
     </motion.header>

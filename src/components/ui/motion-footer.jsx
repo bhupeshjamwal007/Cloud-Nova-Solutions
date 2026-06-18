@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import { FaTwitter, FaInstagram, FaFacebookF, FaWhatsapp, FaLinkedinIn } from "react-icons/fa";
+import LazarevCta from "./LazarevCta";
 
 // Register ScrollTrigger safely for React
 if (typeof window !== "undefined") {
@@ -325,21 +326,9 @@ export function CinematicFooter() {
 
             {/* Interactive Magnetic Pills Layout */}
             <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
-              {/* App Store Links (Primary) */}
-              <div className="flex flex-wrap justify-center gap-4 w-full">
-                <MagneticButton as="a" href="#" className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3 group">
-                  <svg className="w-6 h-6 text-[#a1a1aa] group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.04 2.26-.79 3.59-.76 1.56.04 2.87.67 3.55 1.76-3.13 1.77-2.62 5.92.35 7.14-.65 1.58-1.57 3.1-2.57 4.03zm-3.21-14.7c-.55 1.4-1.89 2.37-3.25 2.28.09-1.5 1.05-2.82 2.38-3.4 1.25-.57 2.66-.41 3.25.04-.15.35-.26.72-.38 1.08z" />
-                  </svg>
-                  Download iOS
-                </MagneticButton>
-                
-                <MagneticButton as="a" href="#" className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3 group">
-                  <svg className="w-6 h-6 text-[#a1a1aa] group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0222 3.503C15.5902 8.242 13.8533 7.85 12 7.85c-1.8533 0-3.5902.392-5.1369 1.1004L4.841 5.4475a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3436-4.1021-2.6893-7.5743-6.1185-9.4396" />
-                  </svg>
-                  Download Android
-                </MagneticButton>
+              {/* Call to Action Button */}
+              <div className="flex justify-center w-full">
+                <LazarevCta text="Let's Discuss" href="#contact" />
               </div>
 
               {/* Secondary Text Links */}
@@ -391,13 +380,7 @@ export function CinematicFooter() {
               © 2026 Cloud Nova Solutions. All rights reserved.
             </div>
 
-            {/* "Made with Love" Badge */}
-            <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default border-[rgba(255,255,255,0.1)]">
-              <span className="text-[#a1a1aa] text-[10px] md:text-xs font-bold uppercase tracking-widest">Crafted with</span>
-              <span className="animate-footer-heartbeat text-sm md:text-base text-[var(--destructive)]">❤</span>
-              <span className="text-[#a1a1aa] text-[10px] md:text-xs font-bold uppercase tracking-widest">by</span>
-              <span className="text-white font-black text-xs md:text-sm tracking-normal ml-1">Cloud Nova</span>
-            </div>
+
 
             {/* Back to top */}
             <MagneticButton

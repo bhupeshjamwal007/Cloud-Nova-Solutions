@@ -52,7 +52,8 @@
 
 .clientCell {
   position: relative;
-  height: 220px;
+  min-height: 220px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,9 +115,9 @@
 
 @media (max-width: 768px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   .clientCell {
-    height: 180px;
+    min-height: 180px;
   }
 }
