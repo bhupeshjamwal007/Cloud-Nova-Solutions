@@ -2,8 +2,41 @@ import Script from 'next/script';
 import "./globals.css";
 
 export const metadata = {
-  title: "Cloud Nova Solution",
-  description: "Cloud Nova Solutions - Let's Build Something Extraordinary.",
+  metadataBase: new URL('https://cloudnova-solution.com'),
+  title: {
+    default: "Cloud Nova Solution",
+    template: "%s | Cloud Nova Solution"
+  },
+  description: "Let's Build Something Extraordinary. We offer top-tier web development, mobile app development, and custom software solutions.",
+  keywords: ["Cloud Nova Solution", "Web Development", "Mobile App Development", "Custom Software", "Next.js", "React", "Tech Agency"],
+  authors: [{ name: "Cloud Nova Solutions" }],
+  creator: "Cloud Nova Solutions",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://cloudnova-solution.com",
+    title: "Cloud Nova Solution",
+    description: "Let's Build Something Extraordinary. We offer top-tier web development, mobile app development, and custom software solutions.",
+    siteName: "Cloud Nova Solution",
+    // Next.js App Router automatically looks for an opengraph-image.png in the app directory,
+    // but you can define it here if you have a specific URL.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cloud Nova Solution",
+    description: "Let's Build Something Extraordinary. Expert web and mobile app development.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }) {
