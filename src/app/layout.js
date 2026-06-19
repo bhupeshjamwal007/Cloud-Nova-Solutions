@@ -18,13 +18,20 @@ export const metadata = {
     title: "Cloud Nova Solution",
     description: "Let's Build Something Extraordinary. We offer top-tier web development, mobile app development, and custom software solutions.",
     siteName: "Cloud Nova Solution",
-    // Next.js App Router automatically looks for an opengraph-image.png in the app directory,
-    // but you can define it here if you have a specific URL.
+    images: [
+      {
+        url: "https://cloudnova-solution.com/cns-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Cloud Nova Solution Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Cloud Nova Solution",
     description: "Let's Build Something Extraordinary. Expert web and mobile app development.",
+    images: ["https://cloudnova-solution.com/cns-logo.png"],
   },
   robots: {
     index: true,
