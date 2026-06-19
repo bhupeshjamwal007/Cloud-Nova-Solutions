@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL('https://cloudnova-solution.com'),
   title: {
-    default: "Cloud Nova Solution | Custom Web & Mobile App Development",
+    default: "Cloud Nova Solution | Web & App Development",
     template: "%s | Cloud Nova Solution"
   },
   description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
@@ -15,23 +15,23 @@ export const metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cloudnova-solution.com",
-    title: "Cloud Nova Solution | Custom Web & Mobile App Development",
+    title: "Cloud Nova Solution | Web & App Development",
     description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
     siteName: "Cloud Nova Solution",
     images: [
       {
-        url: "https://cloudnova-solution.com/cns-logo.png",
+        url: "https://cloudnova-solution.com/opengraph.png",
         width: 1200,
         height: 630,
-        alt: "Cloud Nova Solution Logo",
+        alt: "Cloud Nova Solution",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cloud Nova Solution | Custom Web & Mobile App Development",
+    title: "Cloud Nova Solution | Web & App Development",
     description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
-    images: ["https://cloudnova-solution.com/cns-logo.png"],
+    images: ["https://cloudnova-solution.com/opengraph.png"],
   },
   robots: {
     index: true,
