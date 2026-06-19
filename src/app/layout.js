@@ -4,10 +4,10 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL('https://cloudnova-solution.com'),
   title: {
-    default: "Cloud Nova Solution",
+    default: "Cloud Nova Solution | Custom Web & Mobile App Development",
     template: "%s | Cloud Nova Solution"
   },
-  description: "Let's Build Something Extraordinary. We offer top-tier web development, mobile app development, and custom software solutions.",
+  description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
   keywords: ["Cloud Nova Solution", "Web Development", "Mobile App Development", "Custom Software", "Next.js", "React", "Tech Agency"],
   authors: [{ name: "Cloud Nova Solutions" }],
   creator: "Cloud Nova Solutions",
@@ -15,8 +15,8 @@ export const metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cloudnova-solution.com",
-    title: "Cloud Nova Solution",
-    description: "Let's Build Something Extraordinary. We offer top-tier web development, mobile app development, and custom software solutions.",
+    title: "Cloud Nova Solution | Custom Web & Mobile App Development",
+    description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
     siteName: "Cloud Nova Solution",
     images: [
       {
@@ -29,8 +29,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cloud Nova Solution",
-    description: "Let's Build Something Extraordinary. Expert web and mobile app development.",
+    title: "Cloud Nova Solution | Custom Web & Mobile App Development",
+    description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
     images: ["https://cloudnova-solution.com/cns-logo.png"],
   },
   robots: {
