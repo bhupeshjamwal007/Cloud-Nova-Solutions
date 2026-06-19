@@ -17,7 +17,7 @@ export default function MobileAppsBanner() {
           <p className={styles.description}>
             We engineer high-performance iOS and Android applications. From complex neural networks to seamless everyday utilities, our apps are designed to captivate users and dominate the market.
           </p>
-          <LazarevCta text="Build Your App" href="#contact" />
+          <LazarevCta text="Build Your App" href="/contact" />
         </div>
       </div>
     </section>

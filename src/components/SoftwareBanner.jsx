@@ -17,7 +17,7 @@ export default function SoftwareBanner() {
           <p className={styles.description}>
             We engineer robust, offline-capable desktop applications and infinitely scalable cloud platforms tailored perfectly to your business logic. Built for extreme performance and absolute security.
           </p>
-          <LazarevCta text="Develop With Us" href="#contact" />
+          <LazarevCta text="Develop With Us" href="/contact" />
         </div>
       </div>
     </section>

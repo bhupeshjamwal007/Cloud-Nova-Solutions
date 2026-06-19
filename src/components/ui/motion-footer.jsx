@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { MapPin } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
 import { FaTwitter, FaInstagram, FaFacebookF, FaWhatsapp, FaLinkedinIn } from "react-icons/fa";
 import LazarevCta from "./LazarevCta";
 
@@ -328,7 +328,7 @@ export function CinematicFooter() {
             <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
               {/* Call to Action Button */}
               <div className="flex justify-center w-full">
-                <LazarevCta text="Let's Discuss" href="#contact" />
+                <LazarevCta text="Let's Discuss" href="/contact" />
               </div>
 
               {/* Secondary Text Links */}
@@ -349,25 +349,33 @@ export function CinematicFooter() {
                 <MagneticButton as="a" href="#" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
                   <FaTwitter className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </MagneticButton>
-                <MagneticButton as="a" href="#" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
+                <MagneticButton as="a" href="https://www.instagram.com/cloudnova.solution?igsh=NWtxd2k2MzQ3azA4" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
                   <FaInstagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </MagneticButton>
-                <MagneticButton as="a" href="#" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
+                <MagneticButton as="a" href="https://www.facebook.com/share/1M3Q5iABLw/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
                   <FaFacebookF className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </MagneticButton>
-                <MagneticButton as="a" href="#" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
+                <MagneticButton as="a" href="https://wa.me/918899866089" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
                   <FaWhatsapp className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </MagneticButton>
                 <MagneticButton as="a" href="#" className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[#a1a1aa] hover:text-white group">
                   <FaLinkedinIn className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </MagneticButton>
               </div>
-              {/* Location Badge */}
-              <div className="flex justify-center w-full mt-6">
-                <div className="footer-glass-pill px-8 py-4 rounded-full flex items-center gap-3 text-white font-medium shadow-lg">
-                  <MapPin className="w-5 h-5 text-[#0dcaf0]" />
-                  <span className="tracking-wide">Jammu, India</span>
+              {/* Contact Info Badges */}
+              <div className="flex flex-wrap justify-center w-full mt-6 gap-4">
+                <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg">
+                  <MapPin className="w-4 h-4 text-[#0dcaf0]" />
+                  <span className="tracking-wide text-sm">Jammu, India</span>
                 </div>
+                <a href="mailto:solutionscloudnova@gmail.com" className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg hover:text-[#0dcaf0] transition-colors cursor-pointer">
+                  <Mail className="w-4 h-4 text-[#0dcaf0]" />
+                  <span className="tracking-wide text-sm">solutionscloudnova@gmail.com</span>
+                </a>
+                <a href="tel:+918899866089" className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg hover:text-[#0dcaf0] transition-colors cursor-pointer">
+                  <Phone className="w-4 h-4 text-[#0dcaf0]" />
+                  <span className="tracking-wide text-sm">+91-8899866089</span>
+                </a>
               </div>
             </div>
           </div>

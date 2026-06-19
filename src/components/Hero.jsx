@@ -27,7 +27,7 @@ export default function Hero() {
     <section className={styles.heroSection}>
       <div className={styles.heroContentWrapper}>
         <SpotlightBackground>
-          <div className={styles.overlay}>
+          <div className={styles.overlay} style={{ position: 'relative', zIndex: 30 }}>
             <img src="/cns-logo.png" alt="Cloud Nova Solution Logo" className={styles.heroLogo} />
             <h1 className={styles.mainTitle}>
               <span className={styles.typewriterText}>{typedText}</span>

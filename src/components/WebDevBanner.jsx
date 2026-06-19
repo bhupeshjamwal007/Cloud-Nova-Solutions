@@ -40,7 +40,7 @@ export default function WebDevBanner() {
           </div>
         </div>
 
-        <LazarevCta text="Start a Project" />
+        <LazarevCta text="Start a Project" href="/contact" />
         </div>
 
       </div>
