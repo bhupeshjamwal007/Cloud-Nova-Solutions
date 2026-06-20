@@ -114,6 +114,7 @@ export default function ContactPage() {
                           name="email"
                           className={styles.input} 
                           placeholder="john@company.com" 
+                          maxLength={50}
                           required 
                         />
                       </div>
@@ -125,7 +126,9 @@ export default function ContactPage() {
                           id="mobile"
                           name="mobile"
                           className={styles.input} 
-                          placeholder="+1 (555) 123-4567" 
+                          placeholder="+1 1234567890" 
+                          pattern="^\+\d{1,3}\s?\d{10}$"
+                          title="Must start with a + country code, followed by exactly 10 digits (e.g. +1 1234567890)"
                           required 
                         />
                       </div>
