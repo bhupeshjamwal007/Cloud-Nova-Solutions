@@ -32,7 +32,7 @@ export default function VideoSection() {
           ref={videoRef}
           layout
           className={isFullScreen ? styles.fullScreenVideo : styles.videoElement}
-          src="/showreel_preview_1920_v3.mp4" 
+          src="/showreel_preview_1920_v4.mp4" 
           autoPlay 
           loop 
           playsInline

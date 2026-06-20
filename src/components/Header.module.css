@@ -161,6 +161,58 @@
   transform: translate(0, 0);
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburgerLine {
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  transform-origin: 1px;
+}
+
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  z-index: 999;
+}
+
+.mobileLink {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.mobileLink:hover {
+  color: #0D6EFD;
+}
+
 @media (max-width: 768px) {
   .navContainer {
     top: 0;
@@ -173,5 +225,11 @@
   }
   .navLinks {
     display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .desktopCta {
+    display: none !important;
   }
 }

@@ -364,10 +364,10 @@ export function CinematicFooter() {
               </div>
               {/* Contact Info Badges */}
               <div className="flex flex-wrap justify-center w-full mt-6 gap-4">
-                <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg">
+                <a href="https://maps.google.com/?q=Cloud+Nova+Solutions,+Jammu,+India" target="_blank" rel="noopener noreferrer" className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg hover:text-[#0dcaf0] transition-colors cursor-pointer">
                   <MapPin className="w-4 h-4 text-[#0dcaf0]" />
                   <span className="tracking-wide text-sm">Jammu, India</span>
-                </div>
+                </a>
                 <a href="mailto:solutionscloudnova@gmail.com" className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-3 text-white font-medium shadow-lg hover:text-[#0dcaf0] transition-colors cursor-pointer">
                   <Mail className="w-4 h-4 text-[#0dcaf0]" />
                   <span className="tracking-wide text-sm">solutionscloudnova@gmail.com</span>
@@ -385,7 +385,7 @@ export function CinematicFooter() {
             
             {/* Copyright */}
             <div className="text-[#a1a1aa] text-[10px] md:text-xs font-semibold tracking-widest uppercase order-2 md:order-1">
-              © 2026 Cloud Nova Solutions. All rights reserved.
+              © 2026 Cloud Nova Solution. All rights reserved.
             </div>
 
 

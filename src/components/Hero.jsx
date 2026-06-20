@@ -6,7 +6,7 @@ import SpotlightBackground from '@/components/ui/spotlight-background';
 export default function Hero() {
   const [typedText, setTypedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
-  const fullText = "Cloud Nova Solutions";
+  const fullText = "Cloud Nova Solution";
 
   useEffect(() => {
     let i = 0;

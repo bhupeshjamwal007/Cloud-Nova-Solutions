@@ -25,7 +25,7 @@ export default function ManifestoSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Cloud Nova Solutions.
+          Cloud Nova Solution.
         </motion.div>
 
         <div className={styles.grid}>

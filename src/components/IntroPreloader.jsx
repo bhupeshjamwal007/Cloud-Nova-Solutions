@@ -56,7 +56,7 @@ export default function IntroPreloader() {
               transition={{ duration: 0.4, delay: 0.4 }}
               className="text-white text-sm md:text-base font-bold tracking-[0.2em] uppercase"
             >
-              Cloud <span style={{ color: '#0D6EFD' }}>Nova</span> Solutions
+              Cloud <span style={{ color: '#0D6EFD' }}>Nova</span> Solution
             </motion.div>
           </motion.div>
         </motion.div>

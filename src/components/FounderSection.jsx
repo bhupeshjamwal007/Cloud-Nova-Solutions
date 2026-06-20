@@ -32,7 +32,7 @@ export default function FounderSection() {
             </div>
             <div>
               <h3 className={styles.founderName}>Bhupesh Singh Jamwal</h3>
-              <p className={styles.founderTitle}>Founder of Cloud Nova Solutions</p>
+              <p className={styles.founderTitle}>Founder of Cloud Nova Solution</p>
             </div>
           </motion.div>
         </div>

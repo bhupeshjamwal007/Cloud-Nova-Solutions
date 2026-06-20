@@ -24,6 +24,7 @@ const ModelViewer = dynamic(() => import("@/components/ModelViewer"), {
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [selectedServices, setSelectedServices] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,9 +34,30 @@ export default function ContactPage() {
     const data = Object.fromEntries(formData.entries());
     
     // Configure FormSubmit options
-    data._subject = "New Contact from Cloud Nova Solutions Website!";
+    data._subject = "New Contact from Cloud Nova Solution Website!";
     data._captcha = "false"; // Disable recaptcha for seamless API submission
     data._template = "table"; // Format email beautifully
+
+    // Construct the personalized automated welcome email
+    data._autoresponse = `Hi ${data.name},
+
+Thank you for reaching out to Cloud Nova Solution!
+
+We’ve successfully received your inquiry regarding ${data.services || "our services"}. It is exciting to see local businesses taking steps to grow online, and we’re ready to help you make it happen.
+
+What happens next?
+Review: A dedicated tech expert from our team is reviewing your project details right now.
+Response: We will reach out to you via email or phone within 24 business hours to discuss your goals or set up a quick, free discovery call.
+
+In the meantime, if you want to check out some of our latest design tips and work, feel free to visit our website here: https://cloudnova-solution.com
+
+If your project is urgent and you want to speak with us right away, you can reply directly to this email.
+
+Looking forward to building something great together!
+
+Best regards,
+The Cloud Nova Solution Team
+https://cloudnova-solution.com`;
 
     try {
       await fetch("https://formsubmit.co/ajax/solutionscloudnova@gmail.com", {
@@ -125,6 +147,43 @@ export default function ContactPage() {
                           placeholder="+1 (555) 123-4567" 
                           required 
                         />
+                      </div>
+                      
+                      <div className={styles.formGroup}>
+                        <label className={styles.label}>What services do you need? (Select multiple)</label>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {[
+                            "🌐 Web Development",
+                            "📱 Mobile App Development",
+                            "💻 Custom Software",
+                            "🛍️ E-Commerce Store",
+                            "🎨 Logo & Brand Design",
+                            "📈 Local SEO",
+                            "🛠️ Website Maintenance",
+                            "❓ Other"
+                          ].map((service) => (
+                            <button
+                              key={service}
+                              type="button"
+                              onClick={() => {
+                                if (selectedServices.includes(service)) {
+                                  setSelectedServices(selectedServices.filter(s => s !== service));
+                                } else {
+                                  setSelectedServices([...selectedServices, service]);
+                                }
+                              }}
+                              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                                selectedServices.includes(service)
+                                  ? "bg-[#0D6EFD] text-white border-[#0D6EFD] shadow-[0_0_15px_rgba(13,110,253,0.5)]"
+                                  : "bg-zinc-900/50 text-zinc-400 border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.3)] hover:text-zinc-200"
+                              }`}
+                            >
+                              {service}
+                            </button>
+                          ))}
+                        </div>
+                        {/* Hidden input to pass the selected services array to FormSubmit */}
+                        <input type="hidden" name="services" value={selectedServices.join(', ')} />
                       </div>
                       
                       <div className={styles.formGroup}>

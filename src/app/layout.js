@@ -9,8 +9,8 @@ export const metadata = {
   },
   description: "Let's Build Something Extraordinary. Expert web, mobile app, and custom software development solutions.",
   keywords: ["Cloud Nova Solution", "Web Development", "Mobile App Development", "Custom Software", "Next.js", "React", "Tech Agency"],
-  authors: [{ name: "Cloud Nova Solutions" }],
-  creator: "Cloud Nova Solutions",
+  authors: [{ name: "Cloud Nova Solution" }],
+  creator: "Cloud Nova Solution",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -51,12 +51,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* Google AdSense Script - Replace 'ca-pub-YOUR_PUBLISHER_ID_HERE' with your actual AdSense ID */}
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID_HERE"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        ></script>
       </head>
       <body>
         {children}

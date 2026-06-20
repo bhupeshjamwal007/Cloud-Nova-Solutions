@@ -28,6 +28,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   line-height: 1.2rem;
+  white-space: nowrap;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
