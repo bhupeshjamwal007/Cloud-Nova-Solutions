@@ -7,7 +7,9 @@ export async function POST(request) {
     const { name, email, mobile, services, message } = data;
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -73,6 +75,6 @@ https://cloudnova-solution.com
     return NextResponse.json({ success: true, message: "Emails sent successfully" }, { status: 200 });
   } catch (error) {
     console.error("Error sending email:", error);
-    return NextResponse.json({ success: false, message: "Failed to send email" }, { status: 500 });
+    return NextResponse.json({ success: false, message: error.message || "Failed to send email" }, { status: 500 });
   }
 }

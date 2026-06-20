@@ -47,14 +47,14 @@ export default function ContactPage() {
       
       const result = await response.json();
       if (!result.success) {
-        throw new Error("API submission failed");
+        throw new Error(result.message || "API submission failed");
       }
       
       // Trigger success UI and Thor animation
       setIsSubmitted(true);
     } catch (error) {
       console.error("Form submission failed:", error);
-      alert("Failed to send message. Please try again or contact us directly.");
+      alert(`Failed to send message: ${error.message}`);
     } finally {
       setIsSending(false);
     }
