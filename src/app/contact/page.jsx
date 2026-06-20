@@ -115,6 +115,8 @@ export default function ContactPage() {
                           className={styles.input} 
                           placeholder="john@company.com" 
                           maxLength={50}
+                          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                          title="Please enter a valid email address containing an '@' symbol and a valid domain (e.g., name@company.com)"
                           required 
                         />
                       </div>
