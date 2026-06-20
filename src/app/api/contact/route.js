@@ -6,6 +6,10 @@ export async function POST(request) {
     const data = await request.json();
     const { name, email, mobile, services, message } = data;
 
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      throw new Error("Vercel Environment Variables (EMAIL_USER or EMAIL_PASS) are missing or undefined!");
+    }
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
