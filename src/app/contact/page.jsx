@@ -33,41 +33,22 @@ export default function ContactPage() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     
-    // Configure FormSubmit options
-    data._subject = "New Contact from Cloud Nova Solution Website!";
-    data._captcha = "false"; // Disable recaptcha for seamless API submission
-    data._template = "table"; // Format email beautifully
-
-    // Construct the personalized automated welcome email
-    data._autoresponse = `Hi ${data.name},
-
-Thank you for reaching out to Cloud Nova Solution!
-
-We’ve successfully received your inquiry regarding ${data.services || "our services"}. It is exciting to see local businesses taking steps to grow online, and we’re ready to help you make it happen.
-
-What happens next?
-Review: A dedicated tech expert from our team is reviewing your project details right now.
-Response: We will reach out to you via email or phone within 24 business hours to discuss your goals or set up a quick, free discovery call.
-
-In the meantime, if you want to check out some of our latest design tips and work, feel free to visit our website here: https://cloudnova-solution.com
-
-If your project is urgent and you want to speak with us right away, you can reply directly to this email.
-
-Looking forward to building something great together!
-
-Best regards,
-The Cloud Nova Solution Team
-https://cloudnova-solution.com`;
+    // Add the selected services array back into the data payload
+    data.services = selectedServices.length > 0 ? selectedServices.join(', ') : "None selected";
 
     try {
-      await fetch("https://formsubmit.co/ajax/solutionscloudnova@gmail.com", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+        headers: {
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
+      
+      const result = await response.json();
+      if (!result.success) {
+        throw new Error("API submission failed");
+      }
       
       // Trigger success UI and Thor animation
       setIsSubmitted(true);
