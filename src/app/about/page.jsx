@@ -8,6 +8,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import LazarevCta from "@/components/ui/LazarevCta";
 import styles from './AboutPage.module.css';
 import ShaderRipple from "@/components/ui/ShaderRipple";
+import CrystalTrailBackground from "@/components/ui/crystal-trail-background";
 
 export default function AboutPage() {
   // Stagger animation container
@@ -150,19 +151,26 @@ export default function AboutPage() {
 
             {/* Call To Action Block */}
             <motion.div 
-              className={styles.ctaSection}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              className="w-full"
             >
-              <h2 className={styles.ctaTitle}>Let’s Build the Future Together</h2>
-              <p className={styles.ctaText}>
-                Your vision deserves a partner capable of executing it without compromise. Connect with the team at Cloud Nova Solution today, and let us help you build your next great digital experience.
-              </p>
-              <div className="mt-4">
-                <LazarevCta href="/contact" text="Contact Us" />
-              </div>
+              <CrystalTrailBackground className={styles.ctaSection}>
+                <h2 
+                  className={styles.ctaTitle}
+                  style={{ textShadow: "0 0 5px #c084fc, 0 0 10px #c084fc" }}
+                >
+                  Let’s Build the Future Together
+                </h2>
+                <p className={styles.ctaText}>
+                  Your vision deserves a partner capable of executing it without compromise. Connect with the team at Cloud Nova Solution today, and let us help you build your next great digital experience.
+                </p>
+                <div className="mt-4">
+                  <LazarevCta href="/contact" text="Contact Us" />
+                </div>
+              </CrystalTrailBackground>
             </motion.div>
 
           </div>

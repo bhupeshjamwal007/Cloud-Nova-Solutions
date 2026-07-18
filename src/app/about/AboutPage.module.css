@@ -238,8 +238,8 @@
 
 /* Call To Action Block */
 .ctaSection {
-  background: linear-gradient(135deg, rgba(13, 110, 253, 0.08) 0%, rgba(12, 12, 12, 0.3) 100%);
-  border: 1px solid rgba(13, 110, 253, 0.15);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.09) 0%, rgba(10, 10, 15, 0.35) 100%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.22) !important;
   border-radius: 36px;
   padding: 6rem 4rem;
   text-align: center;
@@ -250,18 +250,25 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5),
-              0 0 50px rgba(13, 110, 253, 0.03);
+              0 0 50px rgba(168, 85, 247, 0.04);
+  transition: all 0.5s ease;
+}
+
+.ctaSection:hover {
+  border-color: rgba(168, 85, 247, 0.4) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65),
+              0 0 70px rgba(168, 85, 247, 0.09);
 }
 
 .ctaTitle {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-  color: #fff;
+  color: #f3e8ff;
   line-height: 1.2;
 }
 
 .ctaText {
-  color: #a1a1aa;
+  color: rgba(216, 180, 254, 0.7);
   font-size: 1.15rem;
   max-width: 600px;
   margin: 0 auto;

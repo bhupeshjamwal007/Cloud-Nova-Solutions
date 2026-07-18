@@ -8,6 +8,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import LazarevCta from "@/components/ui/LazarevCta";
 import styles from './ServicesPage.module.css';
 import ShaderRipple from "@/components/ui/ShaderRipple";
+import CrystalTrailBackground from "@/components/ui/crystal-trail-background";
 
 export default function ServicesPage() {
   // Stagger animation container
@@ -212,19 +213,26 @@ export default function ServicesPage() {
 
             {/* Call To Action Block */}
             <motion.div 
-              className={styles.ctaSection}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              className="w-full"
             >
-              <h2 className={styles.ctaTitle}>Ready to start your next project?</h2>
-              <p className={styles.ctaText}>
-                Reach out to the team at Cloud Nova Solution today, and let's build something incredible together.
-              </p>
-              <div className="mt-4">
-                <LazarevCta href="/contact" text="Let's Talk" />
-              </div>
+              <CrystalTrailBackground className={styles.ctaSection}>
+                <h2 
+                  className={styles.ctaTitle}
+                  style={{ textShadow: "0 0 5px #c084fc, 0 0 10px #c084fc" }}
+                >
+                  Ready to start your next project?
+                </h2>
+                <p className={styles.ctaText}>
+                  Reach out to the team at Cloud Nova Solution today, and let's build something incredible together.
+                </p>
+                <div className="mt-4">
+                  <LazarevCta href="/contact" text="Let's Talk" />
+                </div>
+              </CrystalTrailBackground>
             </motion.div>
 
           </div>
