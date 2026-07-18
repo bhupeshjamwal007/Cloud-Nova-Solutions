@@ -43,8 +43,8 @@ export default function CrystalTrailBackground({ children, className = "" }) {
             rotation: Math.random() * Math.PI,
             rotSpeed: (Math.random() - 0.5) * 0.04,
             alpha: 1.0,
-            // Purple, lavender, pink, and occasional cyan crystal colors
-            hue: Math.random() < 0.15 ? 190 : Math.random() * 50 + 265, // Cyan vs. Purple/Pink
+            // Blue, cyan, and electric blue colors
+            hue: Math.random() * 55 + 185, // Hue between 185 (Cyan) and 240 (Royal Blue)
             decay: Math.random() * 0.015 + 0.01,
           });
         }
@@ -154,7 +154,7 @@ export default function CrystalTrailBackground({ children, className = "" }) {
           rotation: Math.random() * Math.PI,
           rotSpeed: (Math.random() - 0.5) * 0.03,
           alpha: 0.8,
-          hue: Math.random() * 40 + 265, // Purple spectrum
+          hue: Math.random() * 55 + 185, // Blue spectrum
           decay: Math.random() * 0.007 + 0.003,
         });
       }

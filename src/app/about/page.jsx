@@ -160,7 +160,7 @@ export default function AboutPage() {
               <CrystalTrailBackground className={styles.ctaSection}>
                 <h2 
                   className={styles.ctaTitle}
-                  style={{ textShadow: "0 0 5px #c084fc, 0 0 10px #c084fc" }}
+                  style={{ textShadow: "0 0 5px #0D6EFD, 0 0 12px rgba(13,110,253,0.75)" }}
                 >
                   Let’s Build the Future Together
                 </h2>
