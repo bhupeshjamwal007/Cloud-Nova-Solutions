@@ -225,7 +225,7 @@
 
 /* Floating & Spinning Watermark Logo in Background */
 .logoBackground {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -238,6 +238,7 @@
   justify-content: center;
   animation: floatBackground 15s ease-in-out infinite;
   perspective: 1200px;
+  transition: all 0.4s ease;
 }
 
 .floatingSpinningLogo {
@@ -249,6 +250,7 @@
   animation: spinBackground 50s linear infinite;
   position: relative;
   z-index: 2;
+  transition: opacity 0.4s ease;
 }
 
 @keyframes floatBackground {
@@ -314,5 +316,15 @@
   .ctaSection {
     padding: 3.5rem 1.5rem;
     border-radius: 24px;
+  }
+
+  .logoBackground {
+    width: min(90vw, 360px) !important;
+    height: min(90vw, 360px) !important;
+    top: 50% !important;
+  }
+
+  .floatingSpinningLogo {
+    opacity: 0.14 !important;
   }
 }
