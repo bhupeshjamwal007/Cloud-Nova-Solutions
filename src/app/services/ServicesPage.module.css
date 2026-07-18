@@ -1,0 +1,311 @@
+.servicesPage {
+  min-height: 100vh;
+  padding: 10rem 2rem 6rem; /* Top padding to account for fixed header */
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 40%, #0D6EFD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #a1a1aa;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Service Cards Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.5rem;
+}
+
+.card {
+  background: rgba(12, 12, 12, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 28px;
+  padding: 3.5rem 3rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(13, 110, 253, 0.25);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+              0 0 45px rgba(13, 110, 253, 0.08);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(13, 110, 253, 0.035) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: rgba(13, 110, 253, 0.06);
+  border: 1px solid rgba(13, 110, 253, 0.15);
+  border-radius: 18px;
+  color: #0D6EFD;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba(13, 110, 253, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.cardTitle {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease, -webkit-text-stroke 0.4s ease, transform 0.4s ease;
+  display: inline-block;
+  transform-origin: left center;
+}
+
+.card:hover .cardTitle {
+  color: #0D6EFD;
+  -webkit-text-stroke: 1px #0D6EFD;
+  transform: scale(1.03);
+}
+
+.cardDescription {
+  color: #a1a1aa;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.subservicesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.subserviceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  transition: all 0.3s ease;
+}
+
+.subserviceItem:hover {
+  background: rgba(13, 110, 253, 0.045);
+  border-color: rgba(13, 110, 253, 0.15);
+  transform: translateX(6px);
+}
+
+.subserviceCheck {
+  color: #0D6EFD;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.subserviceContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.subserviceTitle {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.subserviceDesc {
+  color: #71717a;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Call To Action Block */
+.ctaSection {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.08) 0%, rgba(12, 12, 12, 0.3) 100%);
+  border: 1px solid rgba(13, 110, 253, 0.15);
+  border-radius: 36px;
+  padding: 6rem 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5),
+              0 0 50px rgba(13, 110, 253, 0.03);
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.ctaText {
+  color: #a1a1aa;
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Floating & Spinning Watermark Logo in Background */
+.logoBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80vw, 800px);
+  height: min(80vw, 800px);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatBackground 15s ease-in-out infinite;
+  perspective: 1200px;
+}
+
+.floatingSpinningLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.25; /* Increased opacity for clear visibility */
+  filter: none; /* Show logo clearly with original colors and sharpness */
+  animation: spinBackground 50s linear infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes floatBackground {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-35px);
+  }
+}
+
+@keyframes spinBackground {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .card {
+    padding: 3rem 2rem;
+  }
+
+  .ctaSection {
+    padding: 4rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .servicesPage {
+    padding: 7rem 1.25rem 4rem;
+  }
+
+  .container {
+    gap: 3.5rem;
+  }
+
+  .title {
+    font-size: 2.3rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .card {
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .subserviceItem {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .ctaSection {
+    padding: 3.5rem 1.5rem;
+    border-radius: 24px;
+  }
+}

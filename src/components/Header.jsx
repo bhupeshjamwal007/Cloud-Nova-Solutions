@@ -52,8 +52,8 @@ export default function Header() {
         
         <div className={styles.navLinks}>
           <a href="/#portfolio" className={styles.link}>Portfolio</a>
-          <a href="/#services" className={styles.link}>Services</a>
-          <a href="/#about" className={styles.link}>About</a>
+          <Link href="/services" className={styles.link}>Services</Link>
+          <Link href="/about" className={styles.link}>About</Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -83,8 +83,8 @@ export default function Header() {
             className={styles.mobileMenuOverlay}
           >
             <Link href="/#portfolio" className={styles.mobileLink} onClick={closeMenu}>Portfolio</Link>
-            <Link href="/#services" className={styles.mobileLink} onClick={closeMenu}>Services</Link>
-            <Link href="/#about" className={styles.mobileLink} onClick={closeMenu}>About</Link>
+            <Link href="/services" className={styles.mobileLink} onClick={closeMenu}>Services</Link>
+            <Link href="/about" className={styles.mobileLink} onClick={closeMenu}>About</Link>
             <div className="mt-8">
               <LazarevCta href="/contact" text="Contact Us" onClick={closeMenu} />
             </div>

@@ -1,25 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from "@/components/Header";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import LazarevCta from "@/components/ui/LazarevCta";
 import styles from './ContactPage.module.css';
-import { Lightning } from "@/components/ui/Lightning";
+import ShaderRipple from "@/components/ui/ShaderRipple";
 
-// Lazy-load the heavy 3D Model Viewer so it doesn't block the page from rendering
-const ModelViewer = dynamic(() => import("@/components/ModelViewer"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-transparent">
-      <div className="w-12 h-12 border-4 border-[rgba(255,255,255,0.1)] border-t-[#0D6EFD] rounded-full animate-spin"></div>
-      <span className="text-zinc-400 font-mono text-sm tracking-widest uppercase animate-pulse">Initializing 3D Engine...</span>
-    </div>
-  )
-});
+
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -66,9 +56,10 @@ export default function ContactPage() {
         <Header />
         
         <section className={`${styles.contactPage} relative overflow-hidden`}>
-          {/* WebGL Lightning Background (triggered by Thor's GSAP timeline) */}
-          <div id="lightning-bg" className="absolute inset-0 pointer-events-none opacity-0 mix-blend-screen" style={{ zIndex: 0 }}>
-            <Lightning hue={220} speed={1.6} intensity={1.5} size={2} />
+          {/* Floating & Spinning Background Logo */}
+          <div className={styles.logoBackground}>
+            <ShaderRipple />
+            <img src="/cns-logo.png" alt="Cloud Nova Background Logo" className={styles.floatingSpinningLogo} />
           </div>
 
           <div className={`${styles.container} relative`} style={{ zIndex: 9999 }}>
@@ -216,14 +207,56 @@ export default function ContactPage() {
                 </AnimatePresence>
               </div>
 
-              {/* Right Panel: Empty placeholder to push the grid and provide space for Thor */}
-              <div className="hidden md:block w-full h-full opacity-0 pointer-events-none"></div>
+              {/* Right Panel: Contact Information & Details */}
+              <div className={`${styles.panel} ${styles.infoSection} flex flex-col justify-center`}>
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Connect With Us</h3>
+                  <p className="text-zinc-400 text-sm">
+                    Prefer direct communication? Reach out to us via email, phone, or find us online. We're here to help.
+                  </p>
+                </div>
+
+                <div className={styles.infoBlock}>
+                  <div className={styles.iconWrapper}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
+                  <div className={styles.infoContent}>
+                    <span className={styles.infoLabel}>Email Us</span>
+                    <a href="mailto:solutionscloudnova@gmail.com" className={`${styles.infoText} hover:text-[#0D6EFD] transition-colors`}>
+                      solutionscloudnova@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className={styles.infoBlock}>
+                  <div className={styles.iconWrapper}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                  </div>
+                  <div className={styles.infoContent}>
+                    <span className={styles.infoLabel}>Call Us / WhatsApp</span>
+                    <a href="tel:+918899866089" className={`${styles.infoText} hover:text-[#0D6EFD] transition-colors`}>
+                      +91 88998 66089
+                    </a>
+                  </div>
+                </div>
+
+                <div className={styles.infoBlock}>
+                  <div className={styles.iconWrapper}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div className={styles.infoContent}>
+                    <span className={styles.infoLabel}>Business Hours</span>
+                    <span className={styles.infoText}>Monday – Saturday: 9:00 AM – 7:00 PM</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          {/* Full-Page 3D Canvas Overlay - Spans the entire screen to prevent Thor from getting clipped */}
-          <div className="absolute inset-0 pointer-events-none w-full h-full" style={{ zIndex: 999 }}>
-            <ModelViewer isSubmitted={isSubmitted} />
           </div>
         </section>
 
