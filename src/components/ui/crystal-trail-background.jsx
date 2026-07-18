@@ -181,7 +181,16 @@ export default function CrystalTrailBackground({ children, className = "" }) {
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none block z-0"
       />
-      <div className="relative z-10 w-full h-full">
+      <div 
+        className="relative z-10 w-full h-full"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 'inherit'
+        }}
+      >
         {children}
       </div>
     </div>
