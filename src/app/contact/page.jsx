@@ -62,7 +62,7 @@ export default function ContactPage() {
             <img src="/cns-logo.png" alt="Cloud Nova Background Logo" className={styles.floatingSpinningLogo} />
           </div>
 
-          <div className={`${styles.container} relative`} style={{ zIndex: 9999 }}>
+          <div className={`${styles.container} relative`} style={{ zIndex: 10 }}>
             {/* Explicitly setting z-0 to prevent background-clip from breaking stacking order */}
             <div className={`${styles.header} relative z-0`}>
               <h1 className={styles.title}>Let's Build Something<br />Extraordinary.</h1>
