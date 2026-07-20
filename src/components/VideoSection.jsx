@@ -5,20 +5,6 @@ import styles from './VideoSection.module.css';
 
 export default function VideoSection() {
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const videoRef = useRef(null);
-
-  // Dynamically toggle audio, reset playback, and force play
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isFullScreen;
-      if (isFullScreen) {
-        // Restart video from the beginning when opened in full screen
-        videoRef.current.currentTime = 0;
-      }
-      // Explicitly call play() to ensure it doesn't pause after state changes
-      videoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
-    }
-  }, [isFullScreen]);
 
   return (
     <div className={styles.videoWrapper}>
@@ -26,17 +12,43 @@ export default function VideoSection() {
       <motion.section 
         layout
         className={isFullScreen ? styles.fullScreenOverlay : styles.videoContainer}
-        onClick={() => setIsFullScreen(!isFullScreen)} // Toggles between full-screen and contained
       >
-        <motion.video 
-          ref={videoRef}
-          layout
+        {/* Click Overlay when not in Full Screen */}
+        {!isFullScreen && (
+          <div 
+            className="absolute inset-0 w-full h-full z-10 cursor-pointer"
+            onClick={() => setIsFullScreen(true)}
+          />
+        )}
+
+        {/* Floating Close Button when in Full Screen */}
+        {isFullScreen && (
+          <button 
+            className="absolute top-6 right-6 z-20 bg-black/60 hover:bg-black/80 text-white rounded-full p-3 border border-white/20 transition-all cursor-pointer flex items-center justify-center shadow-lg"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFullScreen(false);
+            }}
+            style={{ backdropFilter: 'blur(8px)' }}
+            aria-label="Exit Full Screen"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        )}
+
+        <iframe 
           className={isFullScreen ? styles.fullScreenVideo : styles.videoElement}
-          src="/showreel_preview_1920_v4.mp4" 
-          autoPlay 
-          loop 
-          playsInline
-          muted={!isFullScreen} // Crucial for initial browser autoplay
+          src={isFullScreen 
+            ? "https://www.youtube.com/embed/GVu2XMJzb-Q?autoplay=1&mute=0&loop=1&playlist=GVu2XMJzb-Q&controls=1&playsinline=1" 
+            : "https://www.youtube.com/embed/GVu2XMJzb-Q?autoplay=1&mute=1&loop=1&playlist=GVu2XMJzb-Q&controls=0&playsinline=1"
+          }
+          title="Cloud Nova Showreel"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
         />
       </motion.section>
     </div>
