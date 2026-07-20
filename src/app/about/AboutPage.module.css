@@ -92,21 +92,12 @@
 .pillarTitle {
   font-size: 2.2rem;
   font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  color: #fff; /* Solid white text */
   line-height: 1.1;
   text-transform: uppercase;
-  transition: all 0.4s ease;
   display: inline-block;
-  transform-origin: left center;
   position: relative;
   z-index: 1;
-}
-
-.pillarCard:hover .pillarTitle {
-  color: #0D6EFD;
-  -webkit-text-stroke: 1px #0D6EFD;
-  transform: scale(1.03);
 }
 
 .pillarText {
@@ -178,20 +169,11 @@
 .featureTitle {
   font-size: 1.45rem;
   font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  color: #fff; /* Solid white text */
   text-transform: uppercase;
-  transition: all 0.4s ease;
   display: inline-block;
-  transform-origin: left center;
   position: relative;
   z-index: 1;
-}
-
-.featureCard:hover .featureTitle {
-  color: #0D6EFD;
-  -webkit-text-stroke: 1px #0D6EFD;
-  transform: scale(1.02);
 }
 
 .featureText {
@@ -216,18 +198,9 @@
 .approachTitle {
   font-size: 2.2rem;
   font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  color: #fff; /* Solid white text */
   text-transform: uppercase;
-  transition: all 0.4s ease;
   display: inline-block;
-  transform-origin: left center;
-}
-
-.approachSection:hover .approachTitle {
-  color: #0D6EFD;
-  -webkit-text-stroke: 1px #0D6EFD;
-  transform: scale(1.02);
 }
 
 .approachText {
@@ -281,8 +254,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(80vw, 850px);
-  height: min(80vw, 850px);
+  width: min(55vw, 550px);
+  height: min(55vw, 550px);
   pointer-events: none;
   z-index: 1;
   display: flex;

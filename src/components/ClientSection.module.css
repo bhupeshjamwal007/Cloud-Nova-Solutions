@@ -59,9 +59,17 @@
   justify-content: center;
   background: transparent;
   cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0); /* Transparent border by default */
+  border-radius: 20px;
+  transition: all 0.3s ease;
 }
 
-/* Removed the background hover effect so there's no visible box */
+.clientCell:hover {
+  border-color: #0D6EFD; /* Blue border on hover */
+  background-color: rgba(13, 110, 253, 0.03); /* Soft blue background tint */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+              0 0 25px rgba(13, 110, 253, 0.05); /* Soft shadow and blue glow */
+}
 
 .clientItem {
   display: flex;
@@ -69,17 +77,8 @@
   align-items: flex-start;
   justify-content: center;
   padding: 2rem;
-  opacity: 0.3;
-  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
-  filter: grayscale(100%);
-  transform: scale(0.95);
-  text-align: left;
-}
-
-.clientCell:hover .clientItem {
   opacity: 1;
-  filter: grayscale(0%) brightness(200%);
-  transform: scale(1);
+  text-align: left;
 }
 
 .clientLogo {
@@ -97,6 +96,11 @@
   font-weight: 600;
   margin: 0 0 1rem 0;
   letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.clientCell:hover .clientText {
+  color: #0D6EFD; /* Cloud Nova Blue on hover */
 }
 
 .clientDescription {

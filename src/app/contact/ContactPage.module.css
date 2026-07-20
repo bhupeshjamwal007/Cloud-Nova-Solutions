@@ -196,8 +196,8 @@
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(70vw, 650px);
-  height: min(70vw, 650px);
+  width: min(55vw, 550px);
+  height: min(55vw, 550px);
   pointer-events: none;
   z-index: 1;
   display: flex;

@@ -109,20 +109,11 @@
 .cardTitle {
   font-size: 1.85rem;
   font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  color: #fff; /* Solid white text */
   margin-bottom: 1rem;
   position: relative;
   z-index: 1;
-  transition: color 0.4s ease, -webkit-text-stroke 0.4s ease, transform 0.4s ease;
   display: inline-block;
-  transform-origin: left center;
-}
-
-.card:hover .cardTitle {
-  color: #0D6EFD;
-  -webkit-text-stroke: 1px #0D6EFD;
-  transform: scale(1.03);
 }
 
 .cardDescription {
@@ -229,8 +220,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(80vw, 800px);
-  height: min(80vw, 800px);
+  width: min(55vw, 550px);
+  height: min(55vw, 550px);
   pointer-events: none;
   z-index: 1;
   display: flex;

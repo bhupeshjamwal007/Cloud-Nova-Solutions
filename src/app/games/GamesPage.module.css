@@ -1,0 +1,501 @@
+.gamesPage {
+  min-height: 100vh;
+  padding: 10rem 2rem 6rem; /* Top padding to account for fixed header */
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 40%, #0D6EFD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #a1a1aa;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Dashboard Game Selector Grid */
+.gameSelector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.selectorCard {
+  background: rgba(12, 12, 12, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.selectorCard:hover {
+  transform: translateY(-8px);
+  border-color: rgba(13, 110, 253, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+              0 0 35px rgba(13, 110, 253, 0.05);
+}
+
+.activeCard {
+  border-color: #0D6EFD !important;
+  background: rgba(13, 110, 253, 0.03) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+              0 0 30px rgba(13, 110, 253, 0.08);
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.selectorCard:hover .cardTitle,
+.activeCard .cardTitle {
+  color: #0D6EFD;
+}
+
+.cardDescription {
+  color: #8f8f9e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Active Game Viewport */
+.gameViewport {
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 32px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1.25rem;
+}
+
+.gameName {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scoreBoard {
+  display: flex;
+  gap: 2rem;
+}
+
+.scoreItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.scoreLabel {
+  color: #71717a;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.scoreValue {
+  color: #0dcaf0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.highScoreValue {
+  color: #0D6EFD;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.canvasContainer {
+  position: relative;
+  background-color: #050505;
+  border: 2px solid rgba(13, 110, 253, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(13, 110, 253, 0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 400px;
+}
+
+.gameCanvas {
+  display: block;
+}
+
+/* Screen overlays like Game Over, Start Game */
+.screenOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  color: #fff;
+  z-index: 20;
+  text-align: center;
+  padding: 2rem;
+}
+
+.overlayTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ff3b30;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(255, 59, 48, 0.6);
+}
+
+.startTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0dcaf0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(13, 202, 240, 0.6);
+}
+
+.overlayText {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* Control Instructions & Buttons */
+.controlsInfo {
+  color: #71717a;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.keyCap {
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-family: monospace;
+  color: #fff;
+  font-weight: 600;
+}
+
+.btnPrimary {
+  background: #0D6EFD;
+  color: #fff;
+  border: none;
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+.btnPrimary:hover {
+  background: #0b5ed7;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(13, 110, 253, 0.6);
+}
+
+/* Floating & Spinning Watermark Logo in Background */
+.logoBackground {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(55vw, 550px);
+  height: min(55vw, 550px);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatBackground 16s ease-in-out infinite;
+  perspective: 1200px;
+  transition: all 0.4s ease;
+}
+
+.floatingSpinningLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.25; /* Increased opacity for clear visibility */
+  filter: none; /* Show logo clearly with original colors and sharpness */
+  animation: spinBackground 50s linear infinite;
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes floatBackground {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-35px);
+  }
+}
+
+@keyframes spinBackground {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .gameSelector {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .canvasContainer {
+    width: 100%;
+    max-width: 500px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gamesPage {
+    padding: 7rem 1.25rem 4rem;
+  }
+
+  .container {
+    gap: 3rem;
+  }
+
+  .title {
+    font-size: 2.3rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .gameViewport {
+    padding: 1.5rem;
+    border-radius: 24px;
+  }
+
+  .canvasContainer {
+    width: 100%;
+    max-width: 320px;
+    height: 280px;
+  }
+
+  .logoBackground {
+    width: min(90vw, 360px) !important;
+    height: min(90vw, 360px) !important;
+    top: 50% !important;
+  }
+
+  .floatingSpinningLogo {
+    opacity: 0.14 !important;
+  }
+}
+
+/* Play / Code Tabs */
+.tabContainer {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.tabButton {
+  background: transparent;
+  color: #71717a;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tabButton:hover {
+  color: #fff;
+}
+
+.activeTab {
+  background: #0D6EFD;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Code Snippet Container */
+.codeContainer {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  background: #050505;
+  border: 2px solid rgba(13, 110, 253, 0.2);
+  border-radius: 20px;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.codeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+
+.codeLang {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.copyButton {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a1a1aa;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.copyButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #0dcaf0;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Custom scrollbar for code block */
+.codeBlock::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.codeBlock::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.codeBlock::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.codeBlock::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
