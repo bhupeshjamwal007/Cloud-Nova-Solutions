@@ -619,3 +619,94 @@
   box-shadow: 0 0 20px rgba(13, 202, 240, 0.6);
   transform: scale(0.96);
 }
+
+/* Mobile Handheld Console Mode */
+.consoleActive {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: radial-gradient(circle at center, #0e111a 0%, #030305 100%) !important;
+  z-index: 2000 !important;
+  border-radius: 0 !important;
+  padding: 1.5rem 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-shadow: none !important;
+}
+
+.consoleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(13, 110, 253, 0.2);
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+}
+
+.consoleTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0dcaf0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(13, 202, 240, 0.4);
+}
+
+.exitConsoleBtn {
+  background: rgba(255, 59, 48, 0.15);
+  border: 1px solid rgba(255, 59, 48, 0.4);
+  color: #ff3b30;
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exitConsoleBtn:active {
+  background: #ff3b30;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
+}
+
+.mobileTriggerWrapper {
+  display: none;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .mobileTriggerWrapper {
+    display: flex;
+  }
+}
+
+.mobileConsoleTrigger {
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #0D6EFD 0%, #0dcaf0 100%);
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mobileConsoleTrigger:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 25px rgba(13, 202, 240, 0.5);
+}

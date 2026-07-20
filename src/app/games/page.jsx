@@ -278,6 +278,7 @@ export default function GamesPage() {
   const [highScore, setHighScore] = useState({ snake: 0, shooter: 0, memory: 0, pong: 0, stack: 0, flap: 0, breakout: 0 });
   const [viewMode, setViewMode] = useState('play'); // 'play' | 'code'
   const [copied, setCopied] = useState(false);
+  const [isMobileConsoleOpen, setIsMobileConsoleOpen] = useState(false);
 
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
@@ -2069,8 +2070,29 @@ export default function GamesPage() {
               </div>
             </div>
 
+            {/* Mobile console mode trigger */}
+            <div className={styles.mobileTriggerWrapper}>
+              <button 
+                className={styles.mobileConsoleTrigger}
+                onClick={() => {
+                  setViewMode('play');
+                  setIsMobileConsoleOpen(true);
+                }}
+              >
+                🎮 Open Mobile Console
+              </button>
+            </div>
+
             {/* Game Play Viewport */}
-            <div className={styles.gameViewport}>
+            <div className={`${styles.gameViewport} ${isMobileConsoleOpen ? styles.consoleActive : ''}`}>
+              {isMobileConsoleOpen && (
+                <div className={styles.consoleHeader}>
+                  <span className={styles.consoleTitle}>CNS Arcade Handheld</span>
+                  <button className={styles.exitConsoleBtn} onClick={() => setIsMobileConsoleOpen(false)}>
+                    ✕ Close Console
+                  </button>
+                </div>
+              )}
               <div className={styles.gameHeader}>
                 <h2 className={styles.gameName}>
                   {activeGame === 'snake' && 'Neon Snake'}
