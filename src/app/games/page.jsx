@@ -1019,9 +1019,20 @@ export default function GamesPage() {
       player.y = mouseY - player.h / 2;
     };
 
+    // Touch control inside canvas bounds
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const touchY = ((touch.clientY - rect.top) / rect.height) * canvas.height;
+      player.y = touchY - player.h / 2;
+    };
+
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
     canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvas.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1106,6 +1117,7 @@ export default function GamesPage() {
           setGameState('gameover');
           cancelAnimationFrame(requestRef.current);
           updateHighScore('pong', localScore);
+          return;
         }
       } else if (ball.x > canvas.width) {
         // Computer missed!
@@ -1179,6 +1191,7 @@ export default function GamesPage() {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
       canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('touchmove', handleTouchMove);
       cancelAnimationFrame(requestRef.current);
     };
   };
@@ -1675,15 +1688,27 @@ export default function GamesPage() {
       if (e.code in keys) keys[e.code] = false;
     };
 
+    // Mouse control inside canvas bounds
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       paddle.x = mouseX - paddle.w / 2;
     };
 
+    // Touch control inside canvas bounds
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const touchX = ((touch.clientX - rect.left) / rect.width) * canvas.width;
+      paddle.x = touchX - paddle.w / 2;
+    };
+
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
     canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvas.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1845,6 +1870,7 @@ export default function GamesPage() {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
       canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('touchmove', handleTouchMove);
       cancelAnimationFrame(requestRef.current);
     };
   };
@@ -2120,6 +2146,88 @@ export default function GamesPage() {
                   <pre className={styles.codeBlock}>
                     <code>{GAME_CODES[activeGame]}</code>
                   </pre>
+                </div>
+              )}
+
+              {/* On-screen virtual controller for mobile viewports */}
+              {viewMode === 'play' && gameState === 'playing' && (
+                <div className={styles.mobileController}>
+                  {activeGame === 'snake' && (
+                    <div className={styles.dpadContainer}>
+                      <button 
+                        className={styles.ctrlBtn}
+                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }))}
+                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' })); }}
+                      >
+                        ↑
+                      </button>
+                      <div className="flex gap-4 my-1">
+                        <button 
+                          className={styles.ctrlBtn}
+                          onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }))}
+                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' })); }}
+                        >
+                          ←
+                        </button>
+                        <button 
+                          className={styles.ctrlBtn}
+                          onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }))}
+                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' })); }}
+                        >
+                          →
+                        </button>
+                      </div>
+                      <button 
+                        className={styles.ctrlBtn}
+                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }))}
+                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' })); }}
+                      >
+                        ↓
+                      </button>
+                    </div>
+                  )}
+
+                  {activeGame === 'shooter' && (
+                    <div className={styles.shooterControls}>
+                      <div className="flex gap-4">
+                        <button 
+                          className={styles.ctrlBtn}
+                          onMouseDown={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }))}
+                          onMouseUp={() => document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowLeft' }))}
+                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' })); }}
+                          onTouchEnd={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowLeft' })); }}
+                        >
+                          ←
+                        </button>
+                        <button 
+                          className={styles.ctrlBtn}
+                          onMouseDown={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }))}
+                          onMouseUp={() => document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }))}
+                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' })); }}
+                          onTouchEnd={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' })); }}
+                        >
+                          →
+                        </button>
+                      </div>
+                      <button 
+                        className={styles.actionBtn}
+                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }))}
+                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' })); }}
+                      >
+                        FIRE
+                      </button>
+                    </div>
+                  )}
+
+                  {(activeGame === 'stack' || activeGame === 'flap') && (
+                    <button 
+                      className={styles.largeActionBtn}
+                      onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }))}
+                      onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' })); }}
+                    >
+                      {activeGame === 'stack' ? 'DROP BLOCK' : 'FLAP / JUMP'}
+                    </button>
+                  )}
                 </div>
               )}
 

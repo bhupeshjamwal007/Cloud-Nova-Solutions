@@ -499,3 +499,112 @@
 .codeBlock::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.25);
 }
+
+/* Mobile virtual controller styles */
+.mobileController {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .mobileController {
+    display: flex; /* Only show on mobile/tablet viewports */
+  }
+}
+
+.dpadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctrlBtn {
+  background: rgba(13, 110, 253, 0.15);
+  border: 2px solid rgba(13, 110, 253, 0.4);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: bold;
+  width: 65px;
+  height: 55px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.1);
+  touch-action: manipulation;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.ctrlBtn:active {
+  background: rgba(13, 110, 253, 0.4);
+  border-color: #0dcaf0;
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.6);
+  transform: scale(0.92);
+}
+
+.shooterControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 1rem;
+}
+
+.actionBtn {
+  background: rgba(220, 53, 69, 0.2);
+  border: 2px solid rgba(220, 53, 69, 0.5);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.75rem 1.5rem;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.2);
+  touch-action: manipulation;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.actionBtn:active {
+  background: rgba(220, 53, 69, 0.5);
+  border-color: #ff3b30;
+  box-shadow: 0 0 25px rgba(220, 53, 69, 0.7);
+  transform: scale(0.95);
+}
+
+.largeActionBtn {
+  background: rgba(13, 202, 240, 0.15);
+  border: 2px solid rgba(13, 202, 240, 0.4);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 100%;
+  max-width: 400px;
+  height: 55px;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(13, 202, 240, 0.15);
+  touch-action: manipulation;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.largeActionBtn:active {
+  background: rgba(13, 202, 240, 0.4);
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(13, 202, 240, 0.6);
+  transform: scale(0.96);
+}
