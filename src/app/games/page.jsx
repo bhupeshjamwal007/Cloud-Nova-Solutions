@@ -281,6 +281,13 @@ export default function GamesPage() {
 
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
+  const inputBridgeRef = useRef({
+    move: null,
+    steerStart: null,
+    steerStop: null,
+    fire: null,
+    action: null
+  });
 
   // Load High Scores from localStorage
   useEffect(() => {
@@ -413,6 +420,19 @@ export default function GamesPage() {
       }
     };
 
+    // Mobile inputs bridge
+    inputBridgeRef.current.move = (dir) => {
+      if (dir === 'left') {
+        if (snake.dx === 0) nextDirection = { dx: -grid, dy: 0 };
+      } else if (dir === 'up') {
+        if (snake.dy === 0) nextDirection = { dx: 0, dy: -grid };
+      } else if (dir === 'right') {
+        if (snake.dx === 0) nextDirection = { dx: grid, dy: 0 };
+      } else if (dir === 'down') {
+        if (snake.dy === 0) nextDirection = { dx: 0, dy: grid };
+      }
+    };
+
     document.addEventListener('keydown', handleKeyDown);
 
     const update = () => {
@@ -538,6 +558,7 @@ export default function GamesPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       cancelAnimationFrame(requestRef.current);
+      inputBridgeRef.current.move = null;
     };
   };
 
@@ -589,6 +610,19 @@ export default function GamesPage() {
       if (e.code in keys) {
         keys[e.code] = false;
       }
+    };
+
+    // Mobile inputs bridge
+    inputBridgeRef.current.steerStart = (dir) => {
+      if (dir === 'left') keys.ArrowLeft = true;
+      if (dir === 'right') keys.ArrowRight = true;
+    };
+    inputBridgeRef.current.steerStop = (dir) => {
+      if (dir === 'left') keys.ArrowLeft = false;
+      if (dir === 'right') keys.ArrowRight = false;
+    };
+    inputBridgeRef.current.fire = () => {
+      fireLaser();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -768,6 +802,9 @@ export default function GamesPage() {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
       cancelAnimationFrame(requestRef.current);
+      inputBridgeRef.current.steerStart = null;
+      inputBridgeRef.current.steerStop = null;
+      inputBridgeRef.current.fire = null;
     };
   };
 
@@ -893,13 +930,13 @@ export default function GamesPage() {
       }, 900);
     };
 
-    // Mouse click coordinates detection
-    const handleCanvasClick = (e) => {
+    // Mouse and Touch click coordinates detection
+    const handleInput = (clientX, clientY) => {
       if (computerTurn || !isWaitingForInput) return;
 
       const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
+      const mouseX = ((clientX - rect.left) / rect.width) * canvas.width;
+      const mouseY = ((clientY - rect.top) / rect.height) * canvas.height;
 
       // Check which pad was clicked
       pads.forEach((pad) => {
@@ -933,7 +970,19 @@ export default function GamesPage() {
       });
     };
 
+    const handleCanvasClick = (e) => {
+      handleInput(e.clientX, e.clientY);
+    };
+
+    const handleCanvasTouch = (e) => {
+      e.preventDefault();
+      if (e.touches.length > 0) {
+        handleInput(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
     canvas.addEventListener('mousedown', handleCanvasClick);
+    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
     drawPads();
 
     // Start game
@@ -941,6 +990,7 @@ export default function GamesPage() {
 
     return () => {
       canvas.removeEventListener('mousedown', handleCanvasClick);
+      canvas.removeEventListener('touchstart', handleCanvasTouch);
     };
   };
 
@@ -1309,8 +1359,19 @@ export default function GamesPage() {
       handleAction();
     };
 
+    const handleCanvasTouch = (e) => {
+      e.preventDefault();
+      handleAction();
+    };
+
+    // Mobile inputs bridge
+    inputBridgeRef.current.action = () => {
+      handleAction();
+    };
+
     document.addEventListener('keydown', handleKeyDown);
     canvas.addEventListener('mousedown', handleCanvasClick);
+    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1389,7 +1450,9 @@ export default function GamesPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       canvas.removeEventListener('mousedown', handleCanvasClick);
+      canvas.removeEventListener('touchstart', handleCanvasTouch);
       cancelAnimationFrame(requestRef.current);
+      inputBridgeRef.current.action = null;
     };
   };
 
@@ -1461,8 +1524,19 @@ export default function GamesPage() {
       handleAction();
     };
 
+    const handleCanvasTouch = (e) => {
+      e.preventDefault();
+      handleAction();
+    };
+
+    // Mobile inputs bridge
+    inputBridgeRef.current.action = () => {
+      handleAction();
+    };
+
     document.addEventListener('keydown', handleKeyDown);
     canvas.addEventListener('mousedown', handleCanvasClick);
+    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
 
     const spawnPipe = () => {
       const minHeight = 40;
@@ -1605,7 +1679,9 @@ export default function GamesPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       canvas.removeEventListener('mousedown', handleCanvasClick);
+      canvas.removeEventListener('touchstart', handleCanvasTouch);
       cancelAnimationFrame(requestRef.current);
+      inputBridgeRef.current.action = null;
     };
   };
 
@@ -2156,31 +2232,31 @@ export default function GamesPage() {
                     <div className={styles.dpadContainer}>
                       <button 
                         className={styles.ctrlBtn}
-                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }))}
-                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' })); }}
+                        onClick={() => inputBridgeRef.current.move?.('up')}
+                        onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.move?.('up'); }}
                       >
                         ↑
                       </button>
                       <div className="flex gap-4 my-1">
                         <button 
                           className={styles.ctrlBtn}
-                          onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }))}
-                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' })); }}
+                          onClick={() => inputBridgeRef.current.move?.('left')}
+                          onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.move?.('left'); }}
                         >
                           ←
                         </button>
                         <button 
                           className={styles.ctrlBtn}
-                          onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }))}
-                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' })); }}
+                          onClick={() => inputBridgeRef.current.move?.('right')}
+                          onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.move?.('right'); }}
                         >
                           →
                         </button>
                       </div>
                       <button 
                         className={styles.ctrlBtn}
-                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }))}
-                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' })); }}
+                        onClick={() => inputBridgeRef.current.move?.('down')}
+                        onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.move?.('down'); }}
                       >
                         ↓
                       </button>
@@ -2192,27 +2268,27 @@ export default function GamesPage() {
                       <div className="flex gap-4">
                         <button 
                           className={styles.ctrlBtn}
-                          onMouseDown={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }))}
-                          onMouseUp={() => document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowLeft' }))}
-                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' })); }}
-                          onTouchEnd={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowLeft' })); }}
+                          onMouseDown={() => inputBridgeRef.current.steerStart?.('left')}
+                          onMouseUp={() => inputBridgeRef.current.steerStop?.('left')}
+                          onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.steerStart?.('left'); }}
+                          onTouchEnd={(e) => { e.preventDefault(); inputBridgeRef.current.steerStop?.('left'); }}
                         >
                           ←
                         </button>
                         <button 
                           className={styles.ctrlBtn}
-                          onMouseDown={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }))}
-                          onMouseUp={() => document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }))}
-                          onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' })); }}
-                          onTouchEnd={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' })); }}
+                          onMouseDown={() => inputBridgeRef.current.steerStart?.('right')}
+                          onMouseUp={() => inputBridgeRef.current.steerStop?.('right')}
+                          onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.steerStart?.('right'); }}
+                          onTouchEnd={(e) => { e.preventDefault(); inputBridgeRef.current.steerStop?.('right'); }}
                         >
                           →
                         </button>
                       </div>
                       <button 
                         className={styles.actionBtn}
-                        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }))}
-                        onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' })); }}
+                        onClick={() => inputBridgeRef.current.fire?.()}
+                        onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.fire?.(); }}
                       >
                         FIRE
                       </button>
@@ -2222,8 +2298,8 @@ export default function GamesPage() {
                   {(activeGame === 'stack' || activeGame === 'flap') && (
                     <button 
                       className={styles.largeActionBtn}
-                      onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }))}
-                      onTouchStart={(e) => { e.preventDefault(); document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' })); }}
+                      onClick={() => inputBridgeRef.current.action?.()}
+                      onTouchStart={(e) => { e.preventDefault(); inputBridgeRef.current.action?.(); }}
                     >
                       {activeGame === 'stack' ? 'DROP BLOCK' : 'FLAP / JUMP'}
                     </button>
