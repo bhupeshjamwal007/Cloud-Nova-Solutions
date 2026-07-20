@@ -970,27 +970,19 @@ export default function GamesPage() {
       });
     };
 
-    const handleCanvasClick = (e) => {
+    const handleCanvasPointer = (e) => {
+      e.preventDefault();
       handleInput(e.clientX, e.clientY);
     };
 
-    const handleCanvasTouch = (e) => {
-      e.preventDefault();
-      if (e.touches.length > 0) {
-        handleInput(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    };
-
-    canvas.addEventListener('mousedown', handleCanvasClick);
-    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
+    canvas.addEventListener('pointerdown', handleCanvasPointer);
     drawPads();
 
     // Start game
     setTimeout(nextLevel, 500);
 
     return () => {
-      canvas.removeEventListener('mousedown', handleCanvasClick);
-      canvas.removeEventListener('touchstart', handleCanvasTouch);
+      canvas.removeEventListener('pointerdown', handleCanvasPointer);
     };
   };
 
@@ -1062,27 +1054,16 @@ export default function GamesPage() {
       if (e.code in keys) keys[e.code] = false;
     };
 
-    // Mouse control inside canvas bounds
-    const handleMouseMove = (e) => {
+    // Pointer control inside canvas bounds
+    const handlePointerMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      const mouseY = e.clientY - rect.top;
-      player.y = mouseY - player.h / 2;
-    };
-
-    // Touch control inside canvas bounds
-    const handleTouchMove = (e) => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      const touchY = ((touch.clientY - rect.top) / rect.height) * canvas.height;
+      const touchY = ((e.clientY - rect.top) / rect.height) * canvas.height;
       player.y = touchY - player.h / 2;
     };
 
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    canvas.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+    canvas.addEventListener('pointermove', handlePointerMove);
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1240,8 +1221,7 @@ export default function GamesPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('touchmove', handleTouchMove);
+      canvas.removeEventListener('pointermove', handlePointerMove);
       cancelAnimationFrame(requestRef.current);
     };
   };
@@ -1355,11 +1335,7 @@ export default function GamesPage() {
       }
     };
 
-    const handleCanvasClick = () => {
-      handleAction();
-    };
-
-    const handleCanvasTouch = (e) => {
+    const handleCanvasPointer = (e) => {
       e.preventDefault();
       handleAction();
     };
@@ -1370,8 +1346,7 @@ export default function GamesPage() {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    canvas.addEventListener('mousedown', handleCanvasClick);
-    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
+    canvas.addEventListener('pointerdown', handleCanvasPointer);
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1449,8 +1424,7 @@ export default function GamesPage() {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      canvas.removeEventListener('mousedown', handleCanvasClick);
-      canvas.removeEventListener('touchstart', handleCanvasTouch);
+      canvas.removeEventListener('pointerdown', handleCanvasPointer);
       cancelAnimationFrame(requestRef.current);
       inputBridgeRef.current.action = null;
     };
@@ -1520,11 +1494,7 @@ export default function GamesPage() {
       }
     };
 
-    const handleCanvasClick = () => {
-      handleAction();
-    };
-
-    const handleCanvasTouch = (e) => {
+    const handleCanvasPointer = (e) => {
       e.preventDefault();
       handleAction();
     };
@@ -1535,8 +1505,7 @@ export default function GamesPage() {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    canvas.addEventListener('mousedown', handleCanvasClick);
-    canvas.addEventListener('touchstart', handleCanvasTouch, { passive: false });
+    canvas.addEventListener('pointerdown', handleCanvasPointer);
 
     const spawnPipe = () => {
       const minHeight = 40;
@@ -1678,8 +1647,7 @@ export default function GamesPage() {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      canvas.removeEventListener('mousedown', handleCanvasClick);
-      canvas.removeEventListener('touchstart', handleCanvasTouch);
+      canvas.removeEventListener('pointerdown', handleCanvasPointer);
       cancelAnimationFrame(requestRef.current);
       inputBridgeRef.current.action = null;
     };
@@ -1764,27 +1732,16 @@ export default function GamesPage() {
       if (e.code in keys) keys[e.code] = false;
     };
 
-    // Mouse control inside canvas bounds
-    const handleMouseMove = (e) => {
+    // Pointer control inside canvas bounds
+    const handlePointerMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      paddle.x = mouseX - paddle.w / 2;
-    };
-
-    // Touch control inside canvas bounds
-    const handleTouchMove = (e) => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      const touchX = ((touch.clientX - rect.left) / rect.width) * canvas.width;
+      const touchX = ((e.clientX - rect.left) / rect.width) * canvas.width;
       paddle.x = touchX - paddle.w / 2;
     };
 
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    canvas.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+    canvas.addEventListener('pointermove', handlePointerMove);
 
     const update = () => {
       requestRef.current = requestAnimationFrame(update);
@@ -1945,8 +1902,7 @@ export default function GamesPage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('touchmove', handleTouchMove);
+      canvas.removeEventListener('pointermove', handlePointerMove);
       cancelAnimationFrame(requestRef.current);
     };
   };

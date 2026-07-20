@@ -194,6 +194,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  touch-action: none;
 }
 
 /* Screen overlays like Game Over, Start Game */
