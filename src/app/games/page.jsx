@@ -2087,50 +2087,65 @@ export default function GamesPage() {
             <div className={`${styles.gameViewport} ${isMobileConsoleOpen ? styles.consoleActive : ''}`}>
               {isMobileConsoleOpen && (
                 <div className={styles.consoleHeader}>
-                  <span className={styles.consoleTitle}>CNS Arcade Handheld</span>
+                  <div className="flex flex-col items-start text-left">
+                    <span className={styles.consoleTitle}>
+                      {activeGame === 'snake' && 'Neon Snake'}
+                      {activeGame === 'shooter' && 'Space Defender'}
+                      {activeGame === 'memory' && 'Memory Matrix'}
+                      {activeGame === 'pong' && 'Neon Pong'}
+                      {activeGame === 'stack' && 'Nova Stack'}
+                      {activeGame === 'flap' && 'Nova Flap'}
+                      {activeGame === 'breakout' && 'Nova Breakout'}
+                    </span>
+                    <span className="text-[11px] text-zinc-400 font-medium tracking-wide mt-0.5">
+                      Score: <strong className="text-[#0dcaf0]">{score}</strong> | High: <strong className="text-[#0D6EFD]">{highScore[activeGame] || 0}</strong>
+                    </span>
+                  </div>
                   <button className={styles.exitConsoleBtn} onClick={() => setIsMobileConsoleOpen(false)}>
-                    ✕ Close Console
+                    ✕ Exit
                   </button>
                 </div>
               )}
-              <div className={styles.gameHeader}>
-                <h2 className={styles.gameName}>
-                  {activeGame === 'snake' && 'Neon Snake'}
-                  {activeGame === 'shooter' && 'Space Defender'}
-                  {activeGame === 'memory' && 'Memory Matrix'}
-                  {activeGame === 'pong' && 'Neon Pong'}
-                  {activeGame === 'stack' && 'Nova Stack'}
-                  {activeGame === 'flap' && 'Nova Flap'}
-                  {activeGame === 'breakout' && 'Nova Breakout'}
-                </h2>
+              {!isMobileConsoleOpen && (
+                <div className={styles.gameHeader}>
+                  <h2 className={styles.gameName}>
+                    {activeGame === 'snake' && 'Neon Snake'}
+                    {activeGame === 'shooter' && 'Space Defender'}
+                    {activeGame === 'memory' && 'Memory Matrix'}
+                    {activeGame === 'pong' && 'Neon Pong'}
+                    {activeGame === 'stack' && 'Nova Stack'}
+                    {activeGame === 'flap' && 'Nova Flap'}
+                    {activeGame === 'breakout' && 'Nova Breakout'}
+                  </h2>
 
-                {/* Tab selector for Play / View Source Code */}
-                <div className={styles.tabContainer}>
-                  <button 
-                    className={`${styles.tabButton} ${viewMode === 'play' ? styles.activeTab : ''}`}
-                    onClick={() => setViewMode('play')}
-                  >
-                    Play Game
-                  </button>
-                  <button 
-                    className={`${styles.tabButton} ${viewMode === 'code' ? styles.activeTab : ''}`}
-                    onClick={() => setViewMode('code')}
-                  >
-                    View Code
-                  </button>
-                </div>
-                
-                <div className={styles.scoreBoard}>
-                  <div className={styles.scoreItem}>
-                    <span className={styles.scoreLabel}>Score</span>
-                    <span className={styles.scoreValue}>{score}</span>
+                  {/* Tab selector for Play / View Source Code */}
+                  <div className={styles.tabContainer}>
+                    <button 
+                      className={`${styles.tabButton} ${viewMode === 'play' ? styles.activeTab : ''}`}
+                      onClick={() => setViewMode('play')}
+                    >
+                      Play Game
+                    </button>
+                    <button 
+                      className={`${styles.tabButton} ${viewMode === 'code' ? styles.activeTab : ''}`}
+                      onClick={() => setViewMode('code')}
+                    >
+                      View Code
+                    </button>
                   </div>
-                  <div className={styles.scoreItem}>
-                    <span className={styles.scoreLabel}>High Score</span>
-                    <span className={styles.highScoreValue}>{highScore[activeGame] || 0}</span>
+                  
+                  <div className={styles.scoreBoard}>
+                    <div className={styles.scoreItem}>
+                      <span className={styles.scoreLabel}>Score</span>
+                      <span className={styles.scoreValue}>{score}</span>
+                    </div>
+                    <div className={styles.scoreItem}>
+                      <span className={styles.scoreLabel}>High Score</span>
+                      <span className={styles.highScoreValue}>{highScore[activeGame] || 0}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Core Viewport Content (Canvas or Code Block) */}
               {viewMode === 'play' ? (
@@ -2286,30 +2301,32 @@ export default function GamesPage() {
               )}
 
               {/* User Instructions Info Panel */}
-              <div className={styles.controlsInfo}>
-                <Keyboard className="w-4 h-4 text-zinc-500" />
-                {activeGame === 'snake' && (
-                  <span>Controls: <span className={styles.keyCap}>↑</span> <span className={styles.keyCap}>↓</span> <span className={styles.keyCap}>←</span> <span className={styles.keyCap}>→</span> or <span className={styles.keyCap}>WASD</span></span>
-                )}
-                {activeGame === 'shooter' && (
-                  <span>Controls: <span className={styles.keyCap}>←</span> <span className={styles.keyCap}>→</span> or <span className={styles.keyCap}>A / D</span> to steer, <span className={styles.keyCap}>Space</span> to fire lasers</span>
-                )}
-                {activeGame === 'memory' && (
-                  <span>Controls: Use your <span className={styles.keyCap}>Mouse Click</span> to tap the glowing pads in order</span>
-                )}
-                {activeGame === 'pong' && (
-                  <span>Controls: Move your <span className={styles.keyCap}>Mouse cursor</span> vertically inside the canvas to steer paddle</span>
-                )}
-                {activeGame === 'stack' && (
-                  <span>Controls: Press <span className={styles.keyCap}>Spacebar</span> or click <span className={styles.keyCap}>Mouse Left Click</span> to align and stack blocks</span>
-                )}
-                {activeGame === 'flap' && (
-                  <span>Controls: Press <span className={styles.keyCap}>Spacebar</span> or click <span className={styles.keyCap}>Mouse Left Click</span> to flap upwards</span>
-                )}
-                {activeGame === 'breakout' && (
-                  <span>Controls: Move your <span className={styles.keyCap}>Mouse cursor</span> horizontally inside the canvas to steer paddle</span>
-                )}
-              </div>
+              {!isMobileConsoleOpen && (
+                <div className={styles.controlsInfo}>
+                  <Keyboard className="w-4 h-4 text-zinc-500" />
+                  {activeGame === 'snake' && (
+                    <span>Controls: <span className={styles.keyCap}>↑</span> <span className={styles.keyCap}>↓</span> <span className={styles.keyCap}>←</span> <span className={styles.keyCap}>→</span> or <span className={styles.keyCap}>WASD</span></span>
+                  )}
+                  {activeGame === 'shooter' && (
+                    <span>Controls: <span className={styles.keyCap}>←</span> <span className={styles.keyCap}>→</span> or <span className={styles.keyCap}>A / D</span> to steer, <span className={styles.keyCap}>Space</span> to fire lasers</span>
+                  )}
+                  {activeGame === 'memory' && (
+                    <span>Controls: Use your <span className={styles.keyCap}>Mouse Click</span> to tap the glowing pads in order</span>
+                  )}
+                  {activeGame === 'pong' && (
+                    <span>Controls: Move your <span className={styles.keyCap}>Mouse cursor</span> vertically inside the canvas to steer paddle</span>
+                  )}
+                  {activeGame === 'stack' && (
+                    <span>Controls: Press <span className={styles.keyCap}>Spacebar</span> or click <span className={styles.keyCap}>Mouse Left Click</span> to align and stack blocks</span>
+                  )}
+                  {activeGame === 'flap' && (
+                    <span>Controls: Press <span className={styles.keyCap}>Spacebar</span> or click <span className={styles.keyCap}>Mouse Left Click</span> to flap upwards</span>
+                  )}
+                  {activeGame === 'breakout' && (
+                    <span>Controls: Move your <span className={styles.keyCap}>Mouse cursor</span> horizontally inside the canvas to steer paddle</span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </section>
