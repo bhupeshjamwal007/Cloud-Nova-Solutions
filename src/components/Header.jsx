@@ -51,7 +51,7 @@ export default function Header() {
         </div>
         
         <div className={styles.navLinks}>
-          <a href="/#portfolio" className={styles.link}>Portfolio</a>
+          <Link href="/portfolio" className={styles.link}>Portfolio</Link>
           <Link href="/services" className={styles.link}>Services</Link>
           <Link href="/games" className={styles.link}>Snippets</Link>
           <Link href="/about" className={styles.link}>About</Link>
@@ -83,7 +83,7 @@ export default function Header() {
             transition={{ duration: 0.3 }}
             className={styles.mobileMenuOverlay}
           >
-            <Link href="/#portfolio" className={styles.mobileLink} onClick={closeMenu}>Portfolio</Link>
+            <Link href="/portfolio" className={styles.mobileLink} onClick={closeMenu}>Portfolio</Link>
             <Link href="/services" className={styles.mobileLink} onClick={closeMenu}>Services</Link>
             <Link href="/games" className={styles.mobileLink} onClick={closeMenu}>Snippets</Link>
             <Link href="/about" className={styles.mobileLink} onClick={closeMenu}>About</Link>

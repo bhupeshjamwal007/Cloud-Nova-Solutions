@@ -1,0 +1,422 @@
+.portfolioPage {
+  min-height: 100vh;
+  padding: 10rem 2rem 6rem; /* Top padding to account for fixed header */
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 40%, #0D6EFD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #a1a1aa;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+/* Category Filters */
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filterBtn {
+  background: rgba(12, 12, 12, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a1a1aa;
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.filterBtn:hover {
+  border-color: rgba(13, 110, 253, 0.4);
+  color: #ffffff;
+}
+
+.activeFilterBtn {
+  background: #0D6EFD;
+  border-color: #0D6EFD;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(13, 110, 253, 0.4);
+}
+
+/* Responsive Grid */
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* Modern Project Cards */
+.projectCard {
+  background: rgba(12, 12, 12, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  border-color: rgba(13, 110, 253, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 
+              0 0 45px rgba(13, 110, 253, 0.05);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(13, 110, 253, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.projectCard:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.projectBadge {
+  background: rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(13, 110, 253, 0.2);
+  color: #0dcaf0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+}
+
+.projectTitle {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 0.25rem 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.projectDesc {
+  color: #a1a1aa;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.techBadge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #d4d4d8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-top: 0.5rem;
+}
+
+.viewDetails {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0D6EFD;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+}
+
+.projectCard:hover .viewDetails {
+  color: #0dcaf0;
+}
+
+/* Modal Case Study Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 2rem 1rem;
+}
+
+.modalContent {
+  background: radial-gradient(circle at 10% 20%, rgba(13, 110, 253, 0.05) 0%, rgba(10, 10, 10, 0.98) 90%);
+  border: 1px solid rgba(13, 110, 253, 0.2);
+  border-radius: 28px;
+  width: 100%;
+  max-width: 750px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8),
+              0 0 30px rgba(13, 110, 253, 0.1);
+  padding: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.closeModalBtn:hover {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.4);
+  color: #ff3b30;
+}
+
+.modalTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 40%, #0D6EFD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modalSubtitle {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.modalCategory {
+  align-self: flex-start;
+}
+
+.modalSplit {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.75rem;
+}
+
+.modalSectionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0dcaf0;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modalSectionText {
+  color: #d4d4d8;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.75rem;
+}
+
+/* Floating & Spinning Watermark Logo in Background */
+.logoBackground {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(55vw, 550px);
+  height: min(55vw, 550px);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatBackground 16s ease-in-out infinite;
+  perspective: 1200px;
+  transition: all 0.4s ease;
+}
+
+.floatingSpinningLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.25;
+  filter: none;
+  animation: spinBackground 50s linear infinite;
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes floatBackground {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-35px);
+  }
+}
+
+@keyframes spinBackground {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .projectGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolioPage {
+    padding: 7rem 1.25rem 4rem;
+  }
+
+  .container {
+    gap: 3rem;
+  }
+
+  .title {
+    font-size: 2.3rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .projectGrid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .projectCard {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .modalContent {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  .modalTitle {
+    font-size: 1.7rem;
+  }
+
+  .logoBackground {
+    width: min(90vw, 360px) !important;
+    height: min(90vw, 360px) !important;
+    top: 50% !important;
+  }
+
+  .floatingSpinningLogo {
+    opacity: 0.14 !important;
+  }
+}
