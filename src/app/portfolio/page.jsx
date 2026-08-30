@@ -1,332 +1,836 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
+import styles from './PortfolioPage.module.css';
+import { Star, Globe, X, Menu, ArrowRight, ArrowUpRight, CircleDot } from 'lucide-react';
 import Header from "@/components/Header";
 import { CinematicFooter } from "@/components/ui/motion-footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import LazarevCta from "@/components/ui/LazarevCta";
-import styles from './PortfolioPage.module.css';
-import ShaderRipple from "@/components/ui/ShaderRipple";
-import CrystalTrailBackground from "@/components/ui/crystal-trail-background";
-import { ExternalLink, X, Briefcase, Calendar, User, Tag } from 'lucide-react';
 
-const projects = [
+const carouselSlides = [
+  { caption: "Conversion design", title: "Crafted to convert." },
+  { caption: "Engineering", title: "Built to scale." },
+  { caption: "Brand systems", title: "Designed to last." }
+];
+
+const partnersList = [
+  "Kaido", "Northpeak", "Vellum", "Orbit", "Brightline", "Cobalt", "Mesa"
+];
+
+const portfolioCards = [
   {
-    id: 1,
-    title: "NovaArcade Playground",
-    subtitle: "Interactive Game Hub & Snippet Viewer",
-    category: "Web Development",
-    badge: "Web App / Gaming",
-    description: "A customized next-gen online arcade suite built directly into the client solution portal. Houses 7 responsive canvas-rendered arcade games, allowing players to instantly toggle between playing or viewing copyable core-logic source code snippets.",
-    problem: "The client wanted to display interactive playground features on their site to demonstrate HTML5 canvas development skills, but standard games broke on mobile layouts, double-fired tap events, or crashed key triggers.",
-    solution: "We engineered a clean canvas rendering engine, mapped touchscreen gestures using Pointer Events to avoid double-firing, and designed a custom handheld virtual console mode overlay for mobile browsers.",
-    tech: ["Next.js", "HTML5 Canvas", "Tailwind CSS", "Framer Motion", "Pointer Events API"],
-    demoUrl: "/games",
-    client: "Cloud Nova Internal",
-    date: "July 2026"
+    name: "Print & Copy",
+    category: "Website / E-Commerce",
+    year: "2025",
+    description: "A complete custom web solution for digital printing and quick copy requests.",
+    tags: ["Web Development", "E-Commerce", "UI/UX"]
   },
   {
-    id: 2,
-    title: "Zenith Headless Store",
-    subtitle: "High-Performance Next-Gen E-Commerce",
-    category: "Web Development",
-    badge: "E-Commerce",
-    description: "An ultra-fast headless e-commerce store with modular content control. Features fluid shopping cart overlays, micro-interactions, Stripe terminal hook-ups, and optimized Core Web Vitals achieving a 99 Lighthouse performance score.",
-    problem: "Legacy storefront platforms were slow and bloated, resulting in high shopping cart abandonment rates on mobile viewports.",
-    solution: "Built a customized headless React setup integrated with a GraphQL API layer, resulting in sub-second page transition load times and a 35% conversion boost.",
-    tech: ["React", "Node.js", "GraphQL", "Stripe API", "Tailwind CSS"],
-    demoUrl: "/services",
-    client: "Zenith Apparel Group",
-    date: "May 2026"
+    name: "Elementa",
+    category: "Product (In Progress)",
+    year: "2026",
+    description: "An advanced modular design system and software platform built for modern enterprises.",
+    tags: ["Product Design", "Software Dev", "UI/UX"]
   },
   {
-    id: 3,
-    title: "FitSphere Application",
-    subtitle: "Cross-Platform Gym Companion & Tracker",
-    category: "Mobile Apps",
-    badge: "iOS & Android App",
-    description: "A beautiful, cross-platform mobile fitness companion application. Incorporates automated workout tracking, live biometric integrations, localized statistics, and secure cloud sync.",
-    problem: "Users struggled to log workouts manually across multiple devices, and cross-platform native syncing was erratic.",
-    solution: "Designed and built a Flutter utility app with offline-first SQLite databases, linked to a Firebase backend for transparent multi-device syncing.",
-    tech: ["Flutter", "Dart", "Firebase", "Google Fit API", "SQLite"],
-    demoUrl: "/contact",
-    client: "FitSphere Ltd.",
-    date: "March 2026"
+    name: "now.gg",
+    category: "Platform Integration",
+    year: "2025",
+    description: "Mobile cloud gaming platform integration, delivering instant browser-based play.",
+    tags: ["Web Integration", "Cloud Solutions", "QA"]
   },
   {
-    id: 4,
-    title: "Vortex Custom CMS",
-    subtitle: "Enterprise Content Delivery Solution",
-    category: "Custom Software",
-    badge: "Custom CMS",
-    description: "A tailored, high-performance database and editor platform built to manage content pipelines for high-traffic media groups. Reduces writing-to-publishing speeds by 40%.",
-    problem: "WordPress configurations were clunky and slow under peak loads, slowing down editorial publishing processes during breaking news.",
-    solution: "Developed a Next.js control portal using a highly indexed PostgreSQL backend and custom content serialization logic, maintaining 100% server uptime.",
-    tech: ["Next.js", "PostgreSQL", "Node.js", "AWS S3", "Docker"],
-    demoUrl: "/services",
-    client: "Global Media Network",
-    date: "January 2026"
+    name: "EduQuest App",
+    category: "Mobile App",
+    year: "2024",
+    description: "A gamified educational mobile application designed to enhance classroom learning.",
+    tags: ["Mobile App", "iOS & Android", "UI/UX"]
   },
   {
-    id: 5,
-    title: "Aura Brand Strategy",
-    subtitle: "Digital Design & Visual Identity",
-    category: "Brand Design",
-    badge: "Branding / UI Design",
-    description: "A comprehensive logo identity design, visual style library, and responsive typography overhaul for a fast-scaling tech venture, optimizing their market branding guidelines.",
-    problem: "The client's logo and visual design felt outdated, failing to appeal to venture capital partners and modern tech consumers.",
-    solution: "Conducted brand research to craft a glowing, minimalist visual language, delivering modular vector kits, web styling guidelines, and animation assets.",
-    tech: ["Figma", "Adobe Illustrator", "After Effects", "Brand Guidelines"],
-    demoUrl: "/contact",
-    client: "Aura FinTech Labs",
-    date: "November 2025"
-  },
-  {
-    id: 6,
-    title: "Apex HyperLocal SEO",
-    subtitle: "Localized Organic Search Booster",
-    category: "Custom Software",
-    badge: "SEO / Marketing Engine",
-    description: "An automated SEO generation suite for local business sites, structuring schema mapping, localized page loads, and organic maps keyword positioning.",
-    problem: "Localized franchises were lost in search engine rankings, losing business to large aggregate directories.",
-    solution: "Deployed a customized server-side rendering template system embedded with dynamic structured schema tags, raising map rankings by 250%.",
-    tech: ["Next.js", "Google Maps API", "Schema Markup", "Analytics APIs"],
-    demoUrl: "/services",
-    client: "Apex Local Group",
-    date: "September 2025"
+    name: "Sudoku App",
+    category: "Mobile Game",
+    year: "2024",
+    description: "A sleek, clean classic Sudoku puzzle mobile application with interactive challenges.",
+    tags: ["Mobile App", "Game Dev", "iOS & Android"]
   }
 ];
 
-const categories = ["All", "Web Development", "Mobile Apps", "Custom Software", "Brand Design"];
+const servicesList = [
+  { idx: "01", title: "Software Development", desc: "Scalable web & mobile products built to last." },
+  { idx: "02", title: "Product Design", desc: "Interfaces that feel effortless and look sharp." },
+  { idx: "03", title: "Quality Assurance", desc: "Rigorous testing for flawless, confident releases." },
+  { idx: "04", title: "Consulting", desc: "Strategy and direction for ambitious teams." }
+];
+
+const statsList = [
+  { target: 150, suffix: "+", label: "Projects delivered" },
+  { target: 98, suffix: "%", label: "Client retention" },
+  { target: 12, suffix: "", label: "Years of craft" },
+  { target: 40, suffix: "+", label: "Team members" }
+];
+
+const SliderContactButton = ({ onSwipe, styles }) => {
+  const [trackWidth, setTrackWidth] = useState(320);
+  const trackRef = useRef(null);
+  
+  // Motion value for high-performance direct dragging
+  const x = useMotionValue(0);
+
+  useEffect(() => {
+    if (trackRef.current) {
+      setTrackWidth(trackRef.current.offsetWidth);
+    }
+  }, []);
+
+  const handleDragStart = () => {
+    if (trackRef.current) {
+      setTrackWidth(trackRef.current.offsetWidth);
+    }
+  };
+
+  const handleWidth = 56;
+  const padding = 6;
+  const maxDragX = trackWidth - handleWidth - padding * 2;
+
+  // Real-time fade out of the shimmering background text during swipe
+  const textOpacity = useTransform(x, [0, maxDragX * 0.6], [1, 0]);
+
+  return (
+    <div 
+      ref={trackRef} 
+      className={styles.sliderTrack}
+    >
+      <motion.div 
+        className={styles.sliderShimmerText}
+        style={{ opacity: textOpacity }}
+      >
+        Slide to Contact Us →
+      </motion.div>
+      
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: maxDragX }}
+        dragElastic={0.02}
+        style={{ x }}
+        onDragStart={handleDragStart}
+        onDragEnd={(event, info) => {
+          if (x.get() >= maxDragX - 15) {
+            onSwipe();
+          }
+          // Springs the handle back to initial 0 coordinate
+          animate(x, 0, { type: 'spring', stiffness: 600, damping: 35 });
+        }}
+        className={styles.sliderHandle}
+      >
+        <ArrowRight className="w-5 h-5 text-white" />
+      </motion.div>
+    </div>
+  );
+};
 
 export default function PortfolioPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [activeModalProject, setActiveModalProject] = useState(null);
+  // Navigation & modal states
+  const [isLoaderFinished, setIsLoaderFinished] = useState(true);
+  const [loaderProgress, setLoaderProgress] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [clockTime, setClockTime] = useState("9:41am");
+  const [clockDate, setClockDate] = useState("12 March, 2025");
+  const [mouseCoords, setMouseCoords] = useState({ x: -9999, y: -9999 });
 
-  // Stagger animation container
-  const containerVariants = {
+  // Carousel state
+  const [carouselIdx, setCarouselIdx] = useState(0);
+
+  // Stats numbers state
+  const [statsNumbers, setStatsNumbers] = useState([0, 0, 0, 0]);
+  const statsPanelRef = useRef(null);
+
+  // References
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const lenisRef = useRef(null);
+
+  // Form states
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  // Clock dynamic updates
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      let hours = now.getHours();
+      const ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      
+      const day = now.getDate();
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+
+      setClockTime(`${hours}:${minutes}${ampm}`);
+      setClockDate(`${day} ${month}, ${year}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Initialize Lenis dynamic import
+  useEffect(() => {
+    let lenisInst;
+    import('lenis').then((LenisModule) => {
+      const LenisClass = LenisModule.default;
+      window.scrollTo(0, 0);
+      lenisInst = new LenisClass({ smoothWheel: true });
+      lenisRef.current = lenisInst;
+
+      function raf(t) {
+        lenisInst.raf(t);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    });
+
+    return () => {
+      if (lenisInst) lenisInst.destroy();
+    };
+  }, []);
+
+  // Scroll lock handles
+  const stopScroll = () => {
+    if (lenisRef.current) lenisRef.current.stop();
+    document.documentElement.style.position = 'relative';
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100%';
+  };
+
+  const startScroll = () => {
+    if (lenisRef.current) lenisRef.current.start();
+    document.documentElement.style.removeProperty('position');
+    document.documentElement.style.removeProperty('overflow');
+    document.documentElement.style.removeProperty('height');
+  };
+  const handleHeroPointerMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
+  const handleHeroPointerLeave = () => {
+    setMouseCoords({ x: -9999, y: -9999 });
+  };  // Handle section scrolling
+  const scrollToId = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    
+    stopScroll();
+    setTimeout(() => {
+      const offsetTop = el.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+      setTimeout(startScroll, 1000);
+    }, 50);
+  };
+
+  // Adaptive Grid above 1920px
+  useEffect(() => {
+    const applyGrid = () => {
+      const FONT_BASE = 16, baseWidth = 1920, coef = 0.6666;
+      const w = window.innerWidth;
+      const widthReduction = ((baseWidth - w) / baseWidth) * 100;
+      const size = FONT_BASE - (FONT_BASE * (widthReduction * coef)) / 100;
+      if (size > FONT_BASE) {
+        document.documentElement.style.fontSize = size + 'px';
+      } else {
+        document.documentElement.style.removeProperty('font-size');
+      }
+    };
+    applyGrid();
+    window.addEventListener('resize', applyGrid);
+    return () => window.removeEventListener('resize', applyGrid);
+  }, []);
+
+  // LiquidReveal background engine
+  useEffect(() => {
+    if (!isLoaderFinished || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext('2d');
+    const offscreenCover = document.createElement('canvas');
+    const offscreenBrush = document.createElement('canvas');
+    const coverCtx = offscreenCover.getContext('2d');
+    const brushCtx = offscreenBrush.getContext('2d');
+
+    const afterImg = new Image();
+    afterImg.src = '/images/bhupesh-glasses.png'; // afterSrc
+
+    const brushRadius = 143;
+    const decay = 0.016;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    let rect = { width: 0, height: 0, left: 0, top: 0 };
+    let pointer = { x: 0, y: 0 };
+    let lastPointer = { x: 0, y: 0 };
+    let pointsQueue = [];
+    let isDrawing = false;
+    let idleFrames = 0;
+
+    const resizeCanvas = () => {
+      rect = container.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
+      ctx.scale(dpr, dpr);
+
+      offscreenCover.width = rect.width;
+      offscreenCover.height = rect.height;
+
+      if (afterImg.complete && afterImg.naturalWidth > 0) {
+        drawCoverImage();
+      }
+    };
+
+    const drawCoverImage = () => {
+      const w = offscreenCover.width;
+      const h = offscreenCover.height;
+      const imgW = afterImg.naturalWidth;
+      const imgH = afterImg.naturalHeight;
+
+      const s = Math.max(w / imgW, h / imgH);
+      const dw = imgW * s;
+      const dh = imgH * s;
+
+      const dx = (w - dw) * 0.50;
+      const dy = (h - dh) * 0.20;
+
+      coverCtx.clearRect(0, 0, w, h);
+      coverCtx.drawImage(afterImg, dx, dy, dw, dh);
+    };
+
+    afterImg.onload = () => {
+      drawCoverImage();
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+    resizeObserver.observe(container);
+
+    const handlePointerMove = (e) => {
+      const currentRect = container.getBoundingClientRect();
+      const px = e.clientX - currentRect.left;
+      const py = e.clientY - currentRect.top;
+      const maxDist = brushRadius;
+
+      if (
+        px < -maxDist || 
+        px > currentRect.width + maxDist || 
+        py < -maxDist || 
+        py > currentRect.height + maxDist
+      ) {
+        isDrawing = false;
+        return;
+      }
+
+      pointer.x = px;
+      pointer.y = py;
+
+      if (!isDrawing) {
+        lastPointer.x = px;
+        lastPointer.y = py;
+        isDrawing = true;
+      }
+
+      const dx = pointer.x - lastPointer.x;
+      const dy = pointer.y - lastPointer.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const step = Math.max(brushRadius * 0.3, 1);
+      const steps = Math.min(Math.ceil(dist / step), 60);
+
+      for (let i = 0; i < steps; i++) {
+        const ratio = i / steps;
+        pointsQueue.push({
+          x: lastPointer.x + dx * ratio,
+          y: lastPointer.y + dy * ratio
+        });
+      }
+
+      lastPointer.x = pointer.x;
+      lastPointer.y = pointer.y;
+      idleFrames = 0;
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+
+    const drawBrushStamp = (x, y) => {
+      const radius = brushRadius;
+      const diameter = Math.ceil(radius * 2);
+      
+      offscreenBrush.width = diameter;
+      offscreenBrush.height = diameter;
+
+      brushCtx.clearRect(0, 0, diameter, diameter);
+      const grad = brushCtx.createRadialGradient(radius, radius, 0, radius, radius, radius);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.55, 'rgba(255, 255, 255, 0.82)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      brushCtx.fillStyle = grad;
+      brushCtx.beginPath();
+      brushCtx.arc(radius, radius, radius, 0, Math.PI * 2);
+      brushCtx.fill();
+
+      brushCtx.compositeOperation = 'source-in';
+      brushCtx.globalCompositeOperation = 'source-in';
+      brushCtx.drawImage(
+        offscreenCover,
+        x - radius, y - radius, diameter, diameter,
+        0, 0, diameter, diameter
+      );
+
+      ctx.compositeOperation = 'source-over';
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(offscreenBrush, x - radius, y - radius);
+    };
+
+    let animationFrameId;
+    const tick = () => {
+      if (pointsQueue.length > 0 || idleFrames < 120) {
+        if (pointsQueue.length === 0) {
+          idleFrames++;
+        }
+
+        const fade = isDrawing ? decay : Math.min(decay + idleFrames * 0.004, 0.5);
+        ctx.compositeOperation = 'destination-out';
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = `rgba(0, 0, 0, ${fade})`;
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        if (pointsQueue.length > 0) {
+          pointsQueue.forEach(pt => {
+            drawBrushStamp(pt.x, pt.y);
+          });
+          pointsQueue = [];
+        }
+
+        if (idleFrames >= 120) {
+          ctx.clearRect(0, 0, rect.width, rect.height);
+        }
+      }
+      animationFrameId = requestAnimationFrame(tick);
+    };
+    animationFrameId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
+    };
+  }, [isLoaderFinished]);
+
+  // Observer for stats panel count-up triggers
+  useEffect(() => {
+    if (!isLoaderFinished) return;
+
+    const panel = statsPanelRef.current;
+    if (!panel) return;
+
+    const handleScroll = () => {
+      const rect = panel.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const startPoint = viewportHeight;
+      const endPoint = viewportHeight / 2;
+      const currentPoint = rect.top;
+
+      let progress = (startPoint - currentPoint) / (startPoint - endPoint);
+      progress = Math.max(0, Math.min(progress, 1));
+
+      const updated = statsList.map(item => Math.round(progress * item.target));
+      setStatsNumbers(updated);
+
+      if (progress >= 1) {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Trigger check initially
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoaderFinished]);
+
+  // Carousel actions
+  const carouselNext = (e) => {
+    if (e) e.stopPropagation();
+    setCarouselIdx((prev) => (prev + 1) % carouselSlides.length);
+  };
+  const carouselPrev = (e) => {
+    if (e) e.stopPropagation();
+    setCarouselIdx((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
+  };
+
+  // Form submit handler to POST to /api/contact
+  const handleSubmitRequest = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    data.services = selectedServices.length > 0 ? selectedServices.join(', ') : "None selected";
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      if (!result.success) {
+        throw new Error(result.message || "API submission failed");
+      }
+      
+      setModalSuccess(true);
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      alert(`Failed to send message: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Gated animation parent variants
+  const revealContainer = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
-  // Card slide up animation
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+  const lineReveal = {
+    hidden: { y: "100%", opacity: 0 },
     show: { 
-      opacity: 1, 
       y: 0, 
-      scale: 1,
-      transition: {
-        type: "spring",
-        bounce: 0.2,
-        duration: 0.7
-      }
+      opacity: 1,
+      transition: { duration: 0.9, ease: [0.215, 0.61, 0.355, 1] }
     }
   };
 
-  const filteredProjects = selectedCategory === "All"
-    ? projects
-    : projects.filter(p => p.category === selectedCategory);
+  const wordReveal = {
+    hidden: { y: 24, opacity: 0 },
+    show: { 
+      y: 0, 
+      opacity: 1,
+      transition: { duration: 0.7, ease: [0.165, 0.84, 0.44, 1] }
+    }
+  };
+
+  const fadeUpReveal = {
+    hidden: { y: 16, opacity: 0 },
+    show: { 
+      y: 0, 
+      opacity: 1,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
 
   return (
-    <div className="relative w-full overflow-x-hidden bg-black">
-      <CrystalTrailBackground />
+    <div className={styles.pageContainer}>
       
-      <main className="relative z-10 w-full bg-black flex flex-col rounded-b-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b border-[rgba(255,255,255,0.1)]">
-        <Header />
+
+
+      <Header />
+
+      {/* Main Sections */}
+      <main id="main">
         
-        <section className={styles.portfolioPage}>
-          {/* Floating & Spinning Background Logo */}
-          <div className={styles.logoBackground}>
-            <ShaderRipple />
-            <img src="/cns-logo.png" alt="Cloud Nova Background Logo" className={styles.floatingSpinningLogo} />
+        {/* Hero Section */}
+        <section 
+          id="home" 
+          ref={containerRef} 
+          className={styles.heroSection}
+          onPointerMove={handleHeroPointerMove}
+          onPointerLeave={handleHeroPointerLeave}
+        >
+          <div className={styles.liquidRevealContainer}>
+            <img 
+              className={styles.liquidRevealBg} 
+              src="/images/bhupesh-headshot.png" 
+              alt="Bhupesh Jamwal Portfolio Hero Background" 
+            />
+            <canvas ref={canvasRef} className={styles.liquidRevealCanvas} aria-hidden="true"></canvas>
           </div>
-
-          <div className={styles.container}>
-            {/* Header Content */}
-            <motion.div 
-              className={styles.header}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className={styles.title}>Our Creations</h1>
-              <p className={styles.subtitle}>
-                Explore the digital solutions, custom platforms, and next-generation applications we've built for ambitious clients. We combine robust tech stacks with premium interfaces.
-              </p>
-            </motion.div>
-
-            {/* Category Filters */}
-            <div className={styles.filterContainer}>
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`${styles.filterBtn} ${selectedCategory === cat ? styles.activeFilterBtn : ''}`}
-                >
-                  {cat}
-                </button>
-              ))}
+          
+          <div className={styles.legibilityVignette}></div>
+          
+          <div 
+            className={`${styles.brandWatermark} ${isLoaderFinished ? styles.active : ''}`}
+            style={{
+              '--mouse-x': `${mouseCoords.x}px`,
+              '--mouse-y': `${mouseCoords.y}px`
+            }}
+          >
+            <div className={styles.watermarkBase}>CloudNova Solution</div>
+            <div className={styles.watermarkHover}>
+              <div className={styles.watermarkHoverText}>CloudNova Solution</div>
             </div>
-
-            {/* Projects Grid */}
-            <motion.div 
-              className={styles.projectGrid}
-              variants={containerVariants}
-              initial="hidden"
-              animate="show"
-              layout
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredProjects.map((project) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    variants={cardVariants}
-                    initial="hidden"
-                    animate="show"
-                    exit={{ opacity: 0, scale: 0.9, y: 10, transition: { duration: 0.3 } }}
-                    className={styles.projectCard}
-                    onClick={() => setActiveModalProject(project)}
-                  >
-                    <div className={styles.cardGlow} />
-                    
-                    <div className={styles.cardHeader}>
-                      <span className={styles.projectBadge}>{project.badge}</span>
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                      <h3 className={styles.projectTitle}>{project.title}</h3>
-                      <span className="text-xs text-zinc-500 font-medium tracking-wide uppercase">{project.subtitle}</span>
-                    </div>
-
-                    <p className={styles.projectDesc}>{project.description}</p>
-
-                    <div className={styles.techStack}>
-                      {project.tech.slice(0, 4).map((t, i) => (
-                        <span key={i} className={styles.techBadge}>{t}</span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className={styles.techBadge}>+{project.tech.length - 4} more</span>
-                      )}
-                    </div>
-
-                    <div className={styles.cardFooter}>
-                      <span className={styles.viewDetails}>
-                        View Case Study
-                        <motion.span
-                          animate={{ x: [0, 4, 0] }}
-                          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                        >
-                          →
-                        </motion.span>
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+          </div>
+          
+          <div className={`${styles.shell} ${styles.heroContent}`}>
+            {/* Overlay content removed as requested */}
           </div>
         </section>
+
+        {/* Contact CTA Section */}
+        <section className={styles.contactCtaSection}>
+          <div className={`${styles.shell} ${styles.contactCtaInner}`}>
+            <SliderContactButton onSwipe={() => { stopScroll(); setIsModalOpen(true); }} styles={styles} />
+          </div>
+        </section>
+
+        {/* Portfolio Section */}
+        <section id="works">
+          <div className={`${styles.shell} ${styles.portfolioInner}`}>
+            <div className={`${styles.eyebrow} ${styles.eyebrowDark} ${styles.portfolioEyebrow} reveal-fade-up`}>Portfolio</div>
+            
+            <h2 className={styles.portfolioTitle}>
+              <span className={styles.revealLine}>
+                <span className={styles.revealLineInner}>Selected Work</span>
+              </span>
+            </h2>
+            
+            <ul className={styles.portfolioGrid}>
+              {portfolioCards.map((card, i) => (
+                <li key={i} className="reveal-fade-up">
+                  <a href="#" className={styles.portfolioCardLink} onClick={(e) => { e.preventDefault(); stopScroll(); setIsModalOpen(true); }}>
+                    <article className={styles.portfolioCard}>
+                      <div className={styles.portfolioCardMeta}>
+                        <span>{card.category} — {card.year}</span>
+                        <span className={styles.portfolioCardBadge}>
+                          <ArrowUpRight />
+                        </span>
+                      </div>
+                      <div className={styles.portfolioCardWatermark}>
+                        <svg viewBox="0 0 48 48" fill="currentColor" width="1em" height="1em">
+                          <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+                        </svg>
+                        <span>®</span>
+                      </div>
+                      <div className={styles.portfolioCardBottom}>
+                        <h3 className={styles.portfolioCardName}>{card.name}</h3>
+                        <p class={styles.portfolioCardDesc}>{card.description}</p>
+                        <div className={styles.portfolioCardTags}>
+                          {card.tags.map((t, idx) => <span key={idx} className={styles.tagChip}>{t}</span>)}
+                        </div>
+                      </div>
+                    </article>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services">
+          <div className={`${styles.shell} ${styles.servicesInner}`}>
+            <div className={`${styles.eyebrow} ${styles.eyebrowDark} reveal-fade-up`}>Services</div>
+            
+            <h2 className={styles.servicesTitle}>
+              <span className={styles.revealLine}>
+                <span className={styles.revealLineInner}>What we do best</span>
+              </span>
+            </h2>
+            
+            <ul className={styles.servicesList}>
+              {servicesList.map((row, i) => (
+                <li key={i} className={`${styles.servicesRowItem} reveal-fade-up`}>
+                  <a href="#" className={styles.servicesLink} onClick={(e) => { e.preventDefault(); stopScroll(); setIsModalOpen(true); }}>
+                    <span className={styles.servicesIdx}>{row.idx}</span>
+                    <h3 className={styles.servicesRowTitle}>{row.title}</h3>
+                    <p className={styles.servicesDesc}>{row.desc}</p>
+                    <span className={styles.servicesBadge}>
+                      <ArrowUpRight />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+
+
       </main>
 
-      {/* Case Study Detail Modal */}
-      <AnimatePresence>
-        {activeModalProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={styles.modalOverlay}
-            onClick={() => setActiveModalProject(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className={styles.modalContent}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className={styles.closeModalBtn}
-                onClick={() => setActiveModalProject(null)}
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
+      <CinematicFooter />
 
-              <div className="flex flex-col gap-2">
-                <span className={`${styles.projectBadge} ${styles.modalCategory}`}>
-                  {activeModalProject.badge}
-                </span>
-                <h2 className={styles.modalTitle}>{activeModalProject.title}</h2>
-                <p className={styles.modalSubtitle}>{activeModalProject.subtitle}</p>
+      {/* RequestModal Overlay */}
+      <div className={`${styles.requestModal} ${isModalOpen ? styles.requestModalActive : ''}`} onClick={() => { startScroll(); setIsModalOpen(false); }} role="dialog" aria-modal="true">
+        <div className={styles.modalPanel} onClick={(e) => e.stopPropagation()}>
+          <button className={styles.closeModalBtn} onClick={() => { startScroll(); setIsModalOpen(false); }} aria-label="Close dialog">
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Form State */}
+          {!modalSuccess && (
+            <div className={styles.modalFormState}>
+              <div className={styles.modalHeadingBlock}>
+                <div className={`${styles.eyebrow} ${styles.eyebrowDark} ${styles.modalEyebrow}`}>Start a project</div>
+                <h2 className={styles.modalTitle}>Tell us what you're building.</h2>
               </div>
-
-              {/* Grid with Project Meta */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-[rgba(255,255,255,0.08)] pt-4">
-                <div className="flex items-center gap-2 text-zinc-400">
-                  <User className="w-4 h-4 text-[#0D6EFD]" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-zinc-500 uppercase font-semibold">Client</span>
-                    <span className="text-xs text-white font-medium">{activeModalProject.client}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-zinc-400">
-                  <Calendar className="w-4 h-4 text-[#0D6EFD]" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-zinc-500 uppercase font-semibold">Date Completed</span>
-                    <span className="text-xs text-white font-medium">{activeModalProject.date}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-zinc-400 col-span-2 sm:col-span-1">
-                  <Tag className="w-4 h-4 text-[#0D6EFD]" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-zinc-500 uppercase font-semibold">Project Domain</span>
-                    <span className="text-xs text-white font-medium">{activeModalProject.category}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.modalSplit}>
-                <div>
-                  <h4 className={styles.modalSectionTitle}>The Challenge</h4>
-                  <p className={styles.modalSectionText}>{activeModalProject.problem}</p>
+              
+              <form className={styles.modalForm} onSubmit={handleSubmitRequest}>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel} htmlFor="name">Your Name</label>
+                  <input 
+                    className={styles.formInput} 
+                    type="text" 
+                    id="name" 
+                    name="name"
+                    placeholder="John Doe" 
+                    required 
+                  />
                 </div>
                 
-                <div>
-                  <h4 className={styles.modalSectionTitle}>Our Solution</h4>
-                  <p className={styles.modalSectionText}>{activeModalProject.solution}</p>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel} htmlFor="email">Email Address</label>
+                  <input 
+                    className={styles.formInput} 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    placeholder="john@company.com" 
+                    maxLength={50}
+                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                    title="Please enter a valid email address containing an '@' symbol and a valid domain (e.g., name@company.com)"
+                    required 
+                  />
                 </div>
-              </div>
 
-              <div className="flex flex-wrap gap-2">
-                {activeModalProject.tech.map((t, idx) => (
-                  <span key={idx} className={styles.techBadge}>{t}</span>
-                ))}
-              </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel} htmlFor="mobile">Mobile Number</label>
+                  <input 
+                    className={styles.formInput} 
+                    type="tel" 
+                    id="mobile" 
+                    name="mobile"
+                    placeholder="+1 1234567890" 
+                    pattern="^\+\d{1,3}\s?\d{10}$"
+                    title="Must start with a + country code, followed by exactly 10 digits (e.g. +1 1234567890)"
+                    required 
+                  />
+                </div>
 
-              <div className={styles.modalFooter}>
-                <LazarevCta 
-                  text="Live Preview" 
-                  href={activeModalProject.demoUrl}
-                  onClick={() => setActiveModalProject(null)}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>What services do you need? (Select multiple)</label>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {[
+                      "🌐 Web Development",
+                      "📱 Mobile App Development",
+                      "💻 Custom Software",
+                      "🛍️ E-Commerce Store",
+                      "🎨 Logo & Brand Design",
+                      "📈 Local SEO",
+                      "🛠️ Website Maintenance",
+                      "❓ Other"
+                    ].map((service) => (
+                      <button
+                        key={service}
+                        type="button"
+                        onClick={() => {
+                          if (selectedServices.includes(service)) {
+                            setSelectedServices(selectedServices.filter(s => s !== service));
+                          } else {
+                            setSelectedServices([...selectedServices, service]);
+                          }
+                        }}
+                        className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 border ${
+                          selectedServices.includes(service)
+                            ? "bg-[#0D6EFD] text-white border-[#0D6EFD] shadow-[0_0_10px_rgba(13,110,253,0.3)]"
+                            : "bg-zinc-100 text-zinc-600 border-zinc-200 hover:bg-zinc-200 hover:text-zinc-800"
+                        }`}
+                      >
+                        {service}
+                      </button>
+                    ))}
+                  </div>
+                  <input type="hidden" name="services" value={selectedServices.join(', ')} />
+                </div>
+                
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel} htmlFor="message">Project Details</label>
+                  <textarea 
+                    className={styles.formTextarea} 
+                    id="message" 
+                    name="message"
+                    rows="4" 
+                    placeholder="Tell us about your goals, budget, and timeline..."
+                    required
+                  ></textarea>
+                </div>
 
-      <CinematicFooter />
-      <FloatingWhatsApp />
+                <div className={styles.modalBottomRow}>
+                  <span className={styles.modalReplyNote}>We reply within one business day.</span>
+                  <button className={`${styles.pillBtn} ${styles.pillBtnDark} ${styles.pillBtnWithArrow}`} type="submit" disabled={isSubmitting}>
+                    <span className={styles.pillBtnInner}>
+                      <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                      <span className={styles.pillBtnBadge}>
+                        <ArrowUpRight className={styles.arrowUpright} />
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* Success State */}
+          {modalSuccess && (
+            <div className={styles.modalSuccessState}>
+              <div className={styles.modalSuccessBadge}>
+                <svg viewBox="0 0 48 48" fill="currentColor" width="1.5rem" height="1.5rem">
+                  <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+                </svg>
+              </div>
+              <h2 className={styles.modalSuccessTitle}>Request received</h2>
+              <p className={styles.modalSuccessDesc}>Thanks for reaching out — we'll get back to you within one business day.</p>
+              
+              <button 
+                className={`${styles.pillBtn} ${styles.pillBtnDark} ${styles.pillBtnNoArrow}`} 
+                onClick={() => {
+                  startScroll();
+                  setIsModalOpen(false);
+                  setTimeout(() => {
+                    setModalSuccess(false);
+                    setSelectedServices([]);
+                  }, 300);
+                }}
+              >
+                <span className={styles.pillBtnInner}>Close</span>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      
     </div>
   );
 }
